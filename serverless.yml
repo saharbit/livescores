@@ -10,6 +10,7 @@ provider:
 plugins:
   - serverless-offline
   - serverless-webpack
+  - serverless-dotenv-plugin
 
 custom:
   webpack:
@@ -19,12 +20,6 @@ custom:
     excludeFiles: src/**/*.test.js
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: get
   graphql:
     handler: handler.graphqlHandler
     events:
