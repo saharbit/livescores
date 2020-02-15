@@ -1,4 +1,7 @@
 import { server } from "./server";
+import { config } from "dotenv";
+
+config();
 
 export async function hello(event) {
   return {

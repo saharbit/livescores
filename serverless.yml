@@ -1,4 +1,4 @@
-service: myapp
+service: livescores
 
 app: myapp
 org: saharbit

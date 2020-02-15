@@ -10,7 +10,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: ["imports-loader?graphql", "babel-loader"]
+        use: "babel-loader"
       }
     ]
   },
