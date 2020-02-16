@@ -20,6 +20,11 @@ class FootballService {
     const response = await this._axiosInstance.get("leagues/country/england");
     return response.data.api.leagues.slice(0, 2);
   }
+
+  async getAllCountries() {
+    const response = await this._axiosInstance.get("countries");
+    return response.data.api.countries;
+  }
 }
 
 export default FootballService;
