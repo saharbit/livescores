@@ -36,7 +36,7 @@ const CountriesPicker = () => {
 
             <h1>Available countries</h1>
             <CountriesList>
-                {data.countries.map((country: any, index: number) => (
+                {data.countries.map((country: ICountry, index: number) => (
                     <Country
                         key={index}
                         country={country}
@@ -53,9 +53,7 @@ const CountriesPicker = () => {
     );
 };
 
-const Container = styled.div`
-    background: darkolivegreen;
-`;
+const Container = styled.div``;
 
 const CountriesList = styled.div`
     display: flex;

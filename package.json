@@ -2,11 +2,11 @@
   "scripts": {
     "test": "jest --passWithNoTests",
     "start": "serverless offline start",
-    "deploy-prod": "serverless deploy"
+    "deploy-prod": "serverless deploy",
+    "generate-types": "graphql-codegen"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
-    "@graphql-codegen/typescript": "^1.12.2",
     "apollo-server-lambda": "^2.10.0",
     "axios": "^0.19.2",
     "graphql": "^14.6.0",
@@ -17,6 +17,7 @@
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/typescript": "^1.12.2",
     "babel-loader": "^8.0.6",
     "babel-preset-jest": "^25.1.0",
     "serverless-offline": "^6.0.0-alpha.65",
