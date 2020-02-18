@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Country as ICountry } from "../../../types";
 
-const Country = ({ country, onClick }: { country: any; onClick: any }) => {
+type Props = {
+    country: ICountry;
+    onClick: () => void;
+};
+
+const Country: React.FC<Props> = ({ country, onClick }) => {
     if (!country.flag) {
         return null;
     }

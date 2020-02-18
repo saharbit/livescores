@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import Country from "./Country";
+import Country from "./components/Country";
+import { Country as ICountry } from "../../types";
 import styled from "styled-components";
 
-const Countries = gql`
+const fetchCountries = gql`
     {
         countries {
             name
@@ -13,17 +14,9 @@ const Countries = gql`
     }
 `;
 
-const LeaguesByCountryNames = gql`
-    {
-        leagues {
-            name
-        }
-    }
-`;
-
-const SetupWizard = () => {
-    const [selectedCountries, setSelectedCountries] = useState<any[]>([]);
-    const { loading, error, data } = useQuery(Countries);
+const CountriesPicker = () => {
+    const [selectedCountries, setSelectedCountries] = useState<ICountry[]>([]);
+    const { loading, error, data } = useQuery(fetchCountries);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
@@ -32,7 +25,7 @@ const SetupWizard = () => {
         <Container>
             <h1>Selected countries</h1>
             <CountriesList>
-                {selectedCountries.map((country: any, index: number) => (
+                {selectedCountries.map((country: ICountry, index: number) => (
                     <Country
                         key={index}
                         country={country}
@@ -72,4 +65,4 @@ const CountriesList = styled.div`
     background-color: #fafafa;
 `;
 
-export default SetupWizard;
+export default CountriesPicker;

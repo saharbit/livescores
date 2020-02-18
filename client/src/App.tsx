@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import SetupWizard from "./SetupWizard";
+import WizardRouter from "./wizard/WizardRouter";
 
 const App = () => {
     return (
         <Router>
             <Switch>
                 <Route path="/">
-                    <SetupWizard />
+                    <WizardRouter />
                 </Route>
             </Switch>
         </Router>
