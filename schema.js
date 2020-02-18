@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-lambda";
 
-export const schema = gql`
+export default gql`
   type Query {
     leagues: [League]
     countries: [Country]
@@ -9,7 +9,7 @@ export const schema = gql`
   type League {
     name: String!
   }
-  
+
   type Country {
     name: String!
     flag: String

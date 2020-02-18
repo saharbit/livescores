@@ -29,7 +29,7 @@ const SetupWizard = () => {
     if (error) return <p>Error :(</p>;
 
     return (
-        <>
+        <Container>
             <h1>Selected countries</h1>
             <CountriesList>
                 {selectedCountries.map((country: any, index: number) => (
@@ -56,9 +56,13 @@ const SetupWizard = () => {
                     />
                 ))}
             </CountriesList>
-        </>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    background: darkolivegreen;
+`;
 
 const CountriesList = styled.div`
     display: flex;

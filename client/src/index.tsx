@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "./client";
+import "./services/ApolloClient";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { client } from "./client";
+import { apolloClient } from "./services/ApolloClient";
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
-  document.getElementById("root")
+    <ApolloProvider client={apolloClient}>
+        <App />
+    </ApolloProvider>,
+    document.getElementById("root")
 );
 
 serviceWorker.unregister();

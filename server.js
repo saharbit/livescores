@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server-lambda";
-import { schema } from "./schema";
+import schema from "./schema";
 import { resolvers } from "./resolvers";
 import FootballService from "./services/FootballService";
 
