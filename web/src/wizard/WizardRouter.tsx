@@ -8,7 +8,7 @@ const WizardRouter = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/countries">
+                <Route path="/">
                     <CountriesPicker />
                 </Route>
                 <Route path="/leagues">

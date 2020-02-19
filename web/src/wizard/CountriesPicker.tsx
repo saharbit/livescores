@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Country from "./components/Country";
 import { Country as ICountry } from "../../types";
 import styled from "styled-components";
+// @ts-ignore
+import InputField from "@kiwicom/orbit-components/lib/InputField";
+// @ts-ignore
+import Button from "@kiwicom/orbit-components/lib/Button";
 
 const fetchCountries = gql`
     {
@@ -16,6 +20,7 @@ const fetchCountries = gql`
 
 const CountriesPicker = () => {
     const [selectedCountries, setSelectedCountries] = useState<ICountry[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const { loading, error, data } = useQuery(fetchCountries);
 
     if (loading) return <p>Loading...</p>;
@@ -33,21 +38,33 @@ const CountriesPicker = () => {
                     />
                 ))}
             </CountriesList>
+            <Button>Select leagues ></Button>
 
-            <h1>Available countries</h1>
+            <h1>Search countries</h1>
+            <InputField
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setSearchTerm(e.target.value)
+                }
+            />
             <CountriesList>
-                {data.countries.map((country: ICountry, index: number) => (
-                    <Country
-                        key={index}
-                        country={country}
-                        onClick={() =>
-                            setSelectedCountries([
-                                ...selectedCountries,
-                                country
-                            ])
-                        }
-                    />
-                ))}
+                {data.countries
+                    .filter((country: ICountry) =>
+                        country.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                    )
+                    .map((country: ICountry, index: number) => (
+                        <Country
+                            key={index}
+                            country={country}
+                            onClick={() =>
+                                setSelectedCountries([
+                                    ...selectedCountries,
+                                    country
+                                ])
+                            }
+                        />
+                    ))}
             </CountriesList>
         </Container>
     );
