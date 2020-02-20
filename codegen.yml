@@ -1,4 +1,4 @@
 schema: schema.js
 generates:
-    client/types.ts:
+    shared/types.ts:
         - typescript
