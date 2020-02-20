@@ -1,2 +1,4 @@
-# livescores
-Serverless GraphQL endpoint + React client
+# Livescores
+- Serverless GraphQL endpoint
+- React(& TypeScript) web client
+- React Native(& TypeScript) mobile client
