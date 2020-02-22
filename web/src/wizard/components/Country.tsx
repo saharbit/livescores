@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Country as ICountry } from "../../../types";
+import { Country as ICountry } from "../../../../shared/types";
 
 type Props = {
     country: ICountry;

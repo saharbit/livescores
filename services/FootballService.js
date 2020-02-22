@@ -16,8 +16,8 @@ class FootballService {
     });
   }
 
-  async getAllLeagues() {
-    const response = await this._axios.get("leagues/country/england");
+  async getAllLeagues(country) {
+    const response = await this._axios.get(`leagues/country/${country}`);
     return response.data.api.leagues.slice(0, 2);
   }
 

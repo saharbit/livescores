@@ -7,7 +7,6 @@
     },
     "dependencies": {
         "@babel/polyfill": "^7.8.3",
-        "@kiwicom/orbit-components": "^0.74.0",
         "apollo-server-lambda": "^2.10.0",
         "axios": "^0.19.2",
         "graphql": "^14.6.0",
@@ -25,10 +24,5 @@
         "serverless-webpack": "^5.3.1",
         "webpack": "^4.41.5",
         "webpack-node-externals": "^1.7.2"
-    },
-    "jest": {
-        "modulePathIgnorePatterns": [
-            "client"
-        ]
     }
 }

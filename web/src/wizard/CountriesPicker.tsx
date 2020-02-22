@@ -2,12 +2,11 @@ import React, { ChangeEvent, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Country from "./components/Country";
-import { Country as ICountry } from "../../types";
+import { Country as ICountry } from "../../../shared/types";
 import styled from "styled-components";
 // @ts-ignore
-import InputField from "@kiwicom/orbit-components/lib/InputField";
-// @ts-ignore
-import Button from "@kiwicom/orbit-components/lib/Button";
+import { Button, InputField } from "@kiwicom/orbit-components";
+import { Link } from "react-router-dom";
 
 const fetchCountries = gql`
     {
@@ -26,58 +25,51 @@ const CountriesPicker = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
+    function removeCountry(country: ICountry) {
+        setSelectedCountries(selectedCountries.filter(x => x.name !== country.name));
+    }
+
+    function selectCountry(country: ICountry) {
+        setSelectedCountries([...selectedCountries, country]);
+    }
+
     return (
         <Container>
             <h1>Selected countries</h1>
             <CountriesList>
                 {selectedCountries.map((country: ICountry, index: number) => (
-                    <Country
-                        key={index}
-                        country={country}
-                        onClick={() => null}
-                    />
+                    <Country key={index} country={country} onClick={() => removeCountry(country)} />
                 ))}
             </CountriesList>
-            <Button>Select leagues ></Button>
 
-            <h1>Search countries</h1>
+            <h1>Add countries</h1>
             <InputField
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setSearchTerm(e.target.value)
-                }
+                placeholder={"Country"}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             />
             <CountriesList>
-                {data.countries
-                    .filter((country: ICountry) =>
-                        country.name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                    )
-                    .map((country: ICountry, index: number) => (
-                        <Country
-                            key={index}
-                            country={country}
-                            onClick={() =>
-                                setSelectedCountries([
-                                    ...selectedCountries,
-                                    country
-                                ])
-                            }
-                        />
-                    ))}
+                {searchTerm &&
+                    data.countries
+                        .filter((country: ICountry) => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                        .map((country: ICountry, index: number) => (
+                            <Country key={index} country={country} onClick={() => selectCountry(country)} />
+                        ))}
             </CountriesList>
+
+            <Link to="/leagues">
+                <Button disabled={selectedCountries.length === 0}>Continue</Button>
+            </Link>
         </Container>
     );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+    background-color: #f6fbf9;
+`;
 
 const CountriesList = styled.div`
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    justify-content: center;
-    background-color: #fafafa;
 `;
 
 export default CountriesPicker;

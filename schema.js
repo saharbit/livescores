@@ -2,7 +2,7 @@ import { gql } from "apollo-server-lambda";
 
 export default gql`
     type Query {
-        leagues: [League]
+        leagues(country: String): [League]
         countries: [Country]
     }
 
