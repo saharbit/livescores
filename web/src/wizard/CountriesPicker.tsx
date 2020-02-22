@@ -7,6 +7,7 @@ import styled from "styled-components";
 // @ts-ignore
 import { Button, InputField } from "@kiwicom/orbit-components";
 import { Link } from "react-router-dom";
+import { useWizardDispatch } from "./WizardContext";
 
 const fetchCountries = gql`
     {
@@ -20,6 +21,7 @@ const fetchCountries = gql`
 const CountriesPicker = () => {
     const [selectedCountries, setSelectedCountries] = useState<ICountry[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
+    const dispatch = useWizardDispatch();
     const { loading, error, data } = useQuery(fetchCountries);
 
     if (loading) return <p>Loading...</p>;
@@ -57,7 +59,14 @@ const CountriesPicker = () => {
             </CountriesList>
 
             <Link to="/leagues">
-                <Button disabled={selectedCountries.length === 0}>Continue</Button>
+                <Button
+                    onClick={() => {
+                        dispatch({ type: "setCountries", payload: selectedCountries });
+                    }}
+                    disabled={selectedCountries.length === 0}
+                >
+                    Continue
+                </Button>
             </Link>
         </Container>
     );
