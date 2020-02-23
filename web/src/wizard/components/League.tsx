@@ -1,27 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { Country as ICountry } from "../../../../shared/types";
+import { League as ILeague } from "../../../../shared/types";
 
 type Props = {
-    country: ICountry;
+    league: ILeague;
     onClick: () => void;
 };
 
-const Country: React.FC<Props> = ({ country, onClick }) => {
-    if (!country.flag) {
+const League: React.FC<Props> = ({ league, onClick }) => {
+    if (!league.logo) {
         return null;
     }
 
     return (
         <Container onClick={onClick}>
-            <Flag src={country.flag} alt={country.name} />
+            <Logo src={league.logo} alt={league.name} />
 
-            <span>{country.name}</span>
+            <span>{league.name}</span>
         </Container>
     );
 };
 
-const Flag = styled.img`
+const Logo = styled.img`
     height: 30px;
     margin-bottom: 5px;
 `;
@@ -38,4 +38,4 @@ const Container = styled.div`
     }
 `;
 
-export default Country;
+export default League;

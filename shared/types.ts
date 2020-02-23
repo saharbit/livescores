@@ -17,10 +17,16 @@ export type Country = {
 export type League = {
    __typename?: 'League',
   name: Scalars['String'],
+  logo?: Maybe<Scalars['String']>,
 };
 
 export type Query = {
    __typename?: 'Query',
   leagues?: Maybe<Array<Maybe<League>>>,
   countries?: Maybe<Array<Maybe<Country>>>,
+};
+
+
+export type QueryLeaguesArgs = {
+  country?: Maybe<Scalars['String']>
 };

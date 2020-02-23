@@ -8,6 +8,7 @@ export default gql`
 
     type League {
         name: String!
+        logo: String
     }
 
     type Country {

@@ -3,7 +3,7 @@ export const resolvers = {
     leagues: async (root, args, { context: { footballService } }) => {
       const { country } = args;
       const leagues = await footballService.getAllLeagues(country);
-      return leagues.map(league => ({ name: league.name }));
+      return leagues.map(league => ({ name: league.name, logo: league.logo }));
     },
     countries: async (root, args, { context: { footballService } }) => {
       const countries = await footballService.getAllCountries();
