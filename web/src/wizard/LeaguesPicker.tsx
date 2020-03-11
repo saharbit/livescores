@@ -5,9 +5,9 @@ import { useQuery } from "@apollo/react-hooks";
 import League from "./components/League";
 import { League as ILeague } from "../../../shared/types";
 
-const LeaguesByCountryNames = gql`
+const GET_LEAGUES = gql`
     query getLeagues($country: String!) {
-        leagues(country: $country) {
+        leaguesByCountry(country: $country) {
             name
             logo
         }
@@ -16,7 +16,7 @@ const LeaguesByCountryNames = gql`
 
 const LeaguesPicker = () => {
     const { countries } = useWizardState();
-    const { loading, error, data } = useQuery(LeaguesByCountryNames, {
+    const { loading, error, data } = useQuery(GET_LEAGUES, {
         variables: { country: countries ? countries[0].name : "england" }
     });
 
@@ -26,7 +26,7 @@ const LeaguesPicker = () => {
     return (
         <div>
             {data.leagues.map((league: ILeague, index: number) => (
-                <League key={index} league={league} onClick={() => true}/>
+                <League key={index} league={league} onClick={() => true} />
             ))}
         </div>
     );

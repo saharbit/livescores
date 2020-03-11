@@ -16,9 +16,14 @@ class FootballService {
     });
   }
 
-  async getAllLeagues(country) {
+  async getLeaguesByCountry(country) {
     const response = await this._axios.get(`leagues/country/${country}`);
     return response.data.api.leagues.slice(0, 2);
+  }
+
+  async getAllLeagues() {
+    const response = await this._axios.get(`leagues`);
+    return response.data.api.leagues;
   }
 
   async getAllCountries() {

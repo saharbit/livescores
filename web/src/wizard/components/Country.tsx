@@ -5,15 +5,16 @@ import { Country as ICountry } from "../../../../shared/types";
 type Props = {
     country: ICountry;
     onClick: () => void;
+    isSelected?: boolean;
 };
 
-const Country: React.FC<Props> = ({ country, onClick }) => {
+const Country: React.FC<Props> = ({ country, onClick, isSelected }) => {
     if (!country.flag) {
         return null;
     }
 
     return (
-        <Container onClick={onClick}>
+        <Container onClick={onClick} isSelected={isSelected}>
             <Flag src={country.flag} alt={country.name} />
 
             <span>{country.name}</span>
@@ -26,11 +27,13 @@ const Flag = styled.img`
     margin-bottom: 5px;
 `;
 
-const Container = styled.div`
+const Container = styled.div<{ isSelected?: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px;
+
+    ${({ isSelected }) => isSelected && "border: 1px solid red;"}
 
     &:hover {
         cursor: pointer;

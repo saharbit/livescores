@@ -63,7 +63,9 @@ function WizardProvider({ children }: ProviderProps) {
     const [state, dispatch] = React.useReducer(wizardReducer, {});
     return (
         <WizardStateContext.Provider value={state}>
-            <WizardDispatchContext.Provider value={dispatch}>{children}</WizardDispatchContext.Provider>
+            <WizardDispatchContext.Provider value={dispatch}>
+                {children}
+            </WizardDispatchContext.Provider>
         </WizardStateContext.Provider>
     );
 }

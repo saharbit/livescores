@@ -8,13 +8,9 @@ type Props = {
 };
 
 const League: React.FC<Props> = ({ league, onClick }) => {
-    if (!league.logo) {
-        return null;
-    }
-
     return (
         <Container onClick={onClick}>
-            <Logo src={league.logo} alt={league.name} />
+            {league.logo && <Logo src={league.logo} alt={league.name} />}
 
             <span>{league.name}</span>
         </Container>

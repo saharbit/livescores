@@ -9,7 +9,7 @@ import { Button, InputField } from "@kiwicom/orbit-components";
 import { Link } from "react-router-dom";
 import { useWizardDispatch } from "./WizardContext";
 
-const fetchCountries = gql`
+const GET_COUNTRIES = gql`
     {
         countries {
             name
@@ -22,7 +22,7 @@ const CountriesPicker = () => {
     const [selectedCountries, setSelectedCountries] = useState<ICountry[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const dispatch = useWizardDispatch();
-    const { loading, error, data } = useQuery(fetchCountries);
+    const { loading, error, data } = useQuery(GET_COUNTRIES);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
@@ -37,19 +37,14 @@ const CountriesPicker = () => {
 
     return (
         <Container>
-            <h1>Selected countries</h1>
-            <CountriesList>
-                {selectedCountries.map((country: ICountry, index: number) => (
-                    <Country key={index} country={country} onClick={() => removeCountry(country)} />
-                ))}
-            </CountriesList>
-
-            <h1>Add countries</h1>
             <InputField
                 placeholder={"Country"}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             />
             <CountriesList>
+                {selectedCountries.map((country: ICountry, index: number) => (
+                    <Country key={index} country={country} onClick={() => removeCountry(country)} isSelected={true} />
+                ))}
                 {searchTerm &&
                     data.countries
                         .filter((country: ICountry) => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
