@@ -24,21 +24,23 @@ const CountriesPicker = () => {
     const dispatch = useWizardDispatch();
     const { loading, error, data } = useQuery(GET_COUNTRIES);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
     function removeCountry(country: ICountry) {
         setSelectedCountries(selectedCountries.filter(x => x.name !== country.name));
     }
 
     function selectCountry(country: ICountry) {
         setSelectedCountries([...selectedCountries, country]);
+        setSearchTerm("");
     }
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
 
     return (
         <Container>
             <InputField
                 placeholder={"Country"}
+                value={searchTerm}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             />
             <CountriesList>
@@ -67,9 +69,7 @@ const CountriesPicker = () => {
     );
 };
 
-const Container = styled.div`
-    background-color: #f6fbf9;
-`;
+const Container = styled.div``;
 
 const CountriesList = styled.div`
     display: flex;
