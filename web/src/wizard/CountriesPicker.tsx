@@ -9,7 +9,7 @@ import { Button, InputField } from "@kiwicom/orbit-components";
 import { Link } from "react-router-dom";
 import { useWizardDispatch } from "./WizardContext";
 
-const GET_COUNTRIES = gql`
+export const GET_COUNTRIES = gql`
     {
         countries {
             name
