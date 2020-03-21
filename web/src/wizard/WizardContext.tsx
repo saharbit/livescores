@@ -1,18 +1,19 @@
 import React from "react";
-import { Country, League } from "../../../shared/types";
+import { Country, League, Team } from "../../../shared/types";
 
 interface State {
     countries?: Country[];
     leagues?: League[];
-    teams?: any[];
+    teams?: Team[];
 }
 
 type Action =
     | { type: "setCountries"; payload: Country[] }
     | { type: "setLeagues"; payload: League[] }
-    | { type: "setTeams"; payload: any[] };
+    | { type: "setTeams"; payload: Team[] };
 
 type Dispatch = (action: Action) => void;
+
 type ProviderProps = {
     children: React.ReactNode;
 };
@@ -61,14 +62,12 @@ function useWizardDispatch() {
 
 function WizardProvider({ children }: ProviderProps) {
     const [state, dispatch] = React.useReducer(wizardReducer, {});
+
     return (
         <WizardStateContext.Provider value={state}>
-            <WizardDispatchContext.Provider value={dispatch}>
-                {children}
-            </WizardDispatchContext.Provider>
+            <WizardDispatchContext.Provider value={dispatch}>{children}</WizardDispatchContext.Provider>
         </WizardStateContext.Provider>
     );
 }
 
 export { WizardProvider, useWizardDispatch, useWizardState };
-

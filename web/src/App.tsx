@@ -1,16 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import WizardRouter from "./wizard/WizardRouter";
+// @ts-ignore
+import Layout, { LayoutColumn } from "@kiwicom/orbit-components/lib/Layout";
+import { WizardProvider } from "./wizard/WizardContext";
 
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route path="/">
-                    <WizardRouter />
-                </Route>
-            </Switch>
-        </Router>
+        <Layout type="MMB">
+            <LayoutColumn>
+                <Router>
+                    <Switch>
+                        <Route path="/">
+                            <WizardProvider>
+                                <WizardRouter />
+                            </WizardProvider>
+                        </Route>
+                    </Switch>
+                </Router>
+            </LayoutColumn>
+        </Layout>
     );
 };
 

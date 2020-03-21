@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen, wait } from "@testing-library/react";
-import CountriesPicker, { GET_COUNTRIES } from "./CountriesPicker";
-import { WizardProvider } from "./WizardContext";
+import CountriesPicker, { GET_COUNTRIES } from "../CountriesPicker";
+import { WizardProvider } from "../WizardContext";
 import { MockedProvider } from "@apollo/react-testing";
 import { BrowserRouter as Router } from "react-router-dom";
 

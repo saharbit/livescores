@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { League as ILeague } from "../../../../shared/types";
+import { Team } from "../../../../shared/types";
 
 type Props = {
-    league: ILeague;
+    team: Team;
     onClick: () => void;
 };
 
-const League: React.FC<Props> = ({ league, onClick }) => {
+const TeamItem: React.FC<Props> = ({ team, onClick }) => {
     return (
         <Container onClick={onClick}>
-            {league.logo && <Logo src={league.logo} alt={league.name} />}
+            {team.logo && <Logo src={team.logo} alt={team.name} />}
 
-            <span>{league.name}</span>
+            <span>{team.name}</span>
         </Container>
     );
 };
@@ -34,4 +34,4 @@ const Container = styled.div`
     }
 `;
 
-export default League;
+export default TeamItem;

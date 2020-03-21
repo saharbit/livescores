@@ -3,7 +3,7 @@ import axios from "axios";
 class FootballService {
     constructor() {
         this._axios = axios.create({
-            baseURL: "https://api-football-v1.p.rapidapi.com/v2/"
+            baseURL: process.env.FOOTBALL_API_URI
         });
 
         this._axios.interceptors.request.use(config => {
@@ -19,22 +19,28 @@ class FootballService {
     async getLeaguesByCountries(countries) {
         let leagues = [];
 
-        for (let i = 0; i < countries.length; i++) {
-            const response = await this._axios.get(`leagues/country/${countries[i]}`);
+        for (let country of countries) {
+            const response = await this._axios.get(`leagues/country/${country}`);
             leagues = [...leagues, ...response.data.api.leagues.slice(0, 2)];
         }
 
         return leagues;
     }
 
-    async getAllLeagues() {
-        const response = await this._axios.get(`leagues`);
-        return response.data.api.leagues;
-    }
-
     async getAllCountries() {
         const response = await this._axios.get("countries");
         return response.data.api.countries;
+    }
+
+    async getTeamsByLeagueIds(leagueIds) {
+        let teams = [];
+
+        for (let id of leagueIds) {
+            const response = await this._axios.get(`teams/league/${id}`);
+            teams = [...teams, ...response.data.api.teams];
+        }
+
+        return teams;
     }
 }
 

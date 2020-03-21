@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import Country from "./components/Country";
-import { Country as ICountry } from "../../../shared/types";
+import CountryItem from "./components/CountryItem";
+import { Country } from "../../../shared/types";
 import styled from "styled-components";
 // @ts-ignore
 import { Button, InputField } from "@kiwicom/orbit-components";
@@ -19,16 +19,16 @@ export const GET_COUNTRIES = gql`
 `;
 
 const CountriesPicker = () => {
-    const [selectedCountries, setSelectedCountries] = useState<ICountry[]>([]);
+    const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const dispatch = useWizardDispatch();
     const { loading, error, data } = useQuery(GET_COUNTRIES);
 
-    function removeCountry(country: ICountry) {
+    function removeCountry(country: Country) {
         setSelectedCountries(selectedCountries.filter(x => x.name !== country.name));
     }
 
-    function selectCountry(country: ICountry) {
+    function selectCountry(country: Country) {
         setSelectedCountries([...selectedCountries, country]);
         setSearchTerm("");
     }
@@ -44,14 +44,14 @@ const CountriesPicker = () => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             />
             <CountriesList>
-                {selectedCountries.map((country: ICountry, index: number) => (
-                    <Country key={index} country={country} onClick={() => removeCountry(country)} isSelected={true} />
+                {selectedCountries.map((country: Country, index: number) => (
+                    <CountryItem key={index} country={country} onClick={() => removeCountry(country)} isSelected={true} />
                 ))}
                 {searchTerm &&
                     data.countries
-                        .filter((country: ICountry) => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                        .map((country: ICountry, index: number) => (
-                            <Country key={index} country={country} onClick={() => selectCountry(country)} />
+                        .filter((country: Country) => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                        .map((country: Country, index: number) => (
+                            <CountryItem key={index} country={country} onClick={() => selectCountry(country)} />
                         ))}
             </CountriesList>
 

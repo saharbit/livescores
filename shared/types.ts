@@ -16,17 +16,31 @@ export type Country = {
 
 export type League = {
    __typename?: 'League',
+  id: Scalars['Int'],
   name: Scalars['String'],
   logo?: Maybe<Scalars['String']>,
 };
 
 export type Query = {
    __typename?: 'Query',
-  leagues?: Maybe<Array<Maybe<League>>>,
   countries?: Maybe<Array<Maybe<Country>>>,
+  leaguesByCountryNames?: Maybe<Array<Maybe<League>>>,
+  teamsByLeagueIds?: Maybe<Array<Maybe<Team>>>,
 };
 
 
-export type QueryLeaguesArgs = {
-  country?: Maybe<Scalars['String']>
+export type QueryLeaguesByCountryNamesArgs = {
+  countryNames?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type QueryTeamsByLeagueIdsArgs = {
+  leagueIds?: Maybe<Array<Maybe<Scalars['Int']>>>
+};
+
+export type Team = {
+   __typename?: 'Team',
+  id: Scalars['Int'],
+  name: Scalars['String'],
+  logo?: Maybe<Scalars['String']>,
 };

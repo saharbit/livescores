@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Country as ICountry } from "../../../../shared/types";
+import { Country } from "../../../../shared/types";
 
 type Props = {
-    country: ICountry;
+    country: Country;
     onClick: () => void;
     isSelected?: boolean;
 };
 
-const Country: React.FC<Props> = ({ country, onClick, isSelected }) => {
+const CountryItem: React.FC<Props> = ({ country, onClick, isSelected }) => {
     if (!country.flag) {
         return null;
     }
@@ -41,4 +41,4 @@ const Container = styled.div<{ isSelected?: boolean }>`
     }
 `;
 
-export default Country;
+export default CountryItem;
