@@ -21,7 +21,7 @@ class FootballService {
 
         for (let country of countries) {
             const response = await this._axios.get(`leagues/country/${country}`);
-            leagues = [...leagues, ...response.data.api.leagues.slice(0, 2)];
+            leagues = [...leagues, ...response.data.api.leagues];
         }
 
         return leagues;
