@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adeira/js@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@adeira/js/-/js-0.1.0.tgz#c30444da2000cf545be7d3d99c800c3f3b234c12"
-  integrity sha512-yBDdU8r2HRu8KRv/ogJIqeIUsFO8qh3G7D9qfRmyxgzlNdZfE6TTKoW5BQ8bvmMNDkpJa+pQfSvd+U91CYSx5g==
+"@adeira/js@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@adeira/js/-/js-1.2.2.tgz#bdaff8b4aba8f737cc4553ad3db7a682e5243fc0"
+  integrity sha512-NYjy0O5S4j0ksJ8pxNf9fxIFIl+/HaNyqTE1QrHaN2QjcKxtzHwVhDQ2rIJBQ5VbVZt9VES8ZcSCi3xoBX+R0Q==
 
 "@apollo/react-common@^3.1.3":
   version "3.1.3"
@@ -1151,20 +1151,20 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@kiwicom/orbit-components@^0.74.0":
-  version "0.74.0"
-  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-components/-/orbit-components-0.74.0.tgz#b14c541499e3439614c2e8d2f390a049eebadbdf"
-  integrity sha512-Ds1Up4mlNYKByKfsfMdGx0JS6lQuPQFrtIKE9HaghvmH0NcLEGBtoQYmYHVuNVvPh38Ly0qTNrCqJJAKGncusw==
+"@kiwicom/orbit-components@^0.80.0":
+  version "0.80.0"
+  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-components/-/orbit-components-0.80.0.tgz#1a891007ec69432e501e569a297354d813dcb541"
+  integrity sha512-EE3bcBvpdrMXTsX+QRK3k6uHQn1VprfzNZDY2Ix5GHTd9q9hqLYBcIsEYXnylftqtAg7nXBmKZktT59o4anrsQ==
   dependencies:
-    "@adeira/js" "^0.1.0"
-    "@kiwicom/orbit-design-tokens" "~0.8.0"
+    "@adeira/js" "^1.2.2"
+    "@kiwicom/orbit-design-tokens" "~0.9.0"
 
-"@kiwicom/orbit-design-tokens@~0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-design-tokens/-/orbit-design-tokens-0.8.0.tgz#7eaa0d90fb40701131e1dad1091591d1e77f8490"
-  integrity sha512-Vm6XLg0lnEM5aFYPPvsXQG9/o2G8iElgmz93q8r8XZ/wwRDjEhRonVqp7WdX7KbxAgpGCjH28bBz7+71PZLSJw==
+"@kiwicom/orbit-design-tokens@~0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-design-tokens/-/orbit-design-tokens-0.9.0.tgz#c031af02f46d8b67ebda16e10937a36db9377a62"
+  integrity sha512-5kaZfJBUvhFqqxwDoPTKuM7VzHdWmGcTNhWvBYDveoi4th1dUNEkKewk6bL5oMLEfW63DjYiqT6bUXDhO4QQdQ==
   dependencies:
-    ramda "^0.26.1"
+    ramda "^0.27.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -8585,10 +8585,10 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-ramda@^0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
-  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
+ramda@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
+  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"

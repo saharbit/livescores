@@ -5,6 +5,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding-top: 10px;
+    background-color: #f6fbf9;
 }
 
 code {

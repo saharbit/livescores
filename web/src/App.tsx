@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import WizardRouter from "./wizard/WizardRouter";
+import { WizardProvider } from "./wizard/WizardContext";
 // @ts-ignore
 import Layout, { LayoutColumn } from "@kiwicom/orbit-components/lib/Layout";
-import { WizardProvider } from "./wizard/WizardContext";
 
 const App = () => {
     return (

@@ -6,6 +6,8 @@ import { Country } from "../../../shared/types";
 import styled from "styled-components";
 // @ts-ignore
 import { Button, InputField } from "@kiwicom/orbit-components";
+// @ts-ignore
+import Search from "@kiwicom/orbit-components/lib/icons/Search";
 import { Link } from "react-router-dom";
 import { useWizardDispatch } from "./WizardContext";
 
@@ -36,23 +38,36 @@ const CountriesPicker = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
+    function isCountryIncludedInSearch(country: Country) {
+        return country.name.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+
     return (
         <Container>
-            <InputField
-                placeholder={"Country"}
-                value={searchTerm}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-            />
+            <Header>
+                <h3>Choose your Countries</h3>
+                <span>skip</span>
+            </Header>
+            <InputContainer>
+                <InputField
+                    placeholder={"Search for Country"}
+                    value={searchTerm}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                    prefix={<Search />}
+                />
+            </InputContainer>
             <CountriesList>
                 {selectedCountries.map((country: Country, index: number) => (
-                    <CountryItem key={index} country={country} onClick={() => removeCountry(country)} isSelected={true} />
+                    <CountryItem
+                        key={index}
+                        country={country}
+                        onClick={() => removeCountry(country)}
+                        isSelected={true}
+                    />
                 ))}
-                {searchTerm &&
-                    data.countries
-                        .filter((country: Country) => country.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                        .map((country: Country, index: number) => (
-                            <CountryItem key={index} country={country} onClick={() => selectCountry(country)} />
-                        ))}
+                {data.countries.filter(isCountryIncludedInSearch).map((country: Country, index: number) => (
+                    <CountryItem key={index} country={country} onClick={() => selectCountry(country)} />
+                ))}
             </CountriesList>
 
             <Link to="/leagues">
@@ -70,6 +85,17 @@ const CountriesPicker = () => {
 };
 
 const Container = styled.div``;
+const InputContainer = styled.div`
+  padding: 0 30px;
+  border-radius: 10px;
+`;
+
+const Header = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+`;
 
 const CountriesList = styled.div`
     display: flex;
