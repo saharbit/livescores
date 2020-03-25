@@ -21,10 +21,25 @@ class FootballService {
 
         for (let country of countries) {
             const response = await this._axios.get(`leagues/country/${country}`);
-            leagues = [...leagues, ...response.data.api.leagues];
+            const countryLeagues = this.getTwoUniqueLeagues(response.data.api.leagues);
+            leagues = [...leagues, ...countryLeagues];
         }
 
         return leagues;
+    }
+
+    getTwoUniqueLeagues(leagues) {
+        let usedLeagues = {};
+
+        return leagues
+            .filter(league => {
+                if (!usedLeagues[league.name]) {
+                    usedLeagues[league.name] = true;
+                    return true;
+                }
+                return false;
+            })
+            .slice(0, 2);
     }
 
     async getAllCountries() {

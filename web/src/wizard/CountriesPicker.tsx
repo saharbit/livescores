@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import CountryItem from "./components/CountryItem";
 import { Country } from "../../../shared/types";
 import styled from "styled-components";
 // @ts-ignore
@@ -10,6 +9,7 @@ import { Button, InputField } from "@kiwicom/orbit-components";
 import Search from "@kiwicom/orbit-components/lib/icons/Search";
 import { Link } from "react-router-dom";
 import { useWizardDispatch } from "./WizardContext";
+import WizardListItem from "./components/WizardListItem";
 
 export const GET_COUNTRIES = gql`
     {
@@ -58,15 +58,21 @@ const CountriesPicker = () => {
             </InputContainer>
             <CountriesList>
                 {selectedCountries.map((country: Country, index: number) => (
-                    <CountryItem
+                    <WizardListItem
                         key={index}
-                        country={country}
-                        onClick={() => removeCountry(country)}
+                        name={country.name}
+                        image={country.flag}
                         isSelected={true}
+                        onClick={() => removeCountry(country)}
                     />
                 ))}
                 {data.countries.filter(isCountryIncludedInSearch).map((country: Country, index: number) => (
-                    <CountryItem key={index} country={country} onClick={() => selectCountry(country)} />
+                    <WizardListItem
+                        key={index}
+                        name={country.name}
+                        image={country.flag}
+                        onClick={() => selectCountry(country)}
+                    />
                 ))}
             </CountriesList>
 
@@ -86,8 +92,8 @@ const CountriesPicker = () => {
 
 const Container = styled.div``;
 const InputContainer = styled.div`
-  padding: 0 30px;
-  border-radius: 10px;
+    padding: 0 30px;
+    border-radius: 10px;
 `;
 
 const Header = styled.div`

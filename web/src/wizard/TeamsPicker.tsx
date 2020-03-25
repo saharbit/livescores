@@ -3,7 +3,8 @@ import { useWizardState } from "./WizardContext";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
-import TeamItem from "./components/TeamItem";
+import WizardListItem from "./components/WizardListItem";
+import styled from "styled-components";
 
 const GET_TEAMS = gql`
     query Teams($leagues: [Int]!) {
@@ -38,11 +39,23 @@ const TeamsPicker = () => {
     return (
         <div>
             <h1>teams</h1>
-            {teams.map((team: Team) => (
-                <TeamItem key={team.id} team={team} onClick={() => selectTeam(team)} />
-            ))}
+            <TeamsList>
+                {teams.map((team: Team) => (
+                    <WizardListItem
+                        key={team.id}
+                        name={team.name}
+                        image={team.logo}
+                        onClick={() => selectTeam(team)}
+                    />
+                ))}
+            </TeamsList>
         </div>
     );
 };
+
+const TeamsList = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
 
 export default TeamsPicker;

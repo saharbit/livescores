@@ -1,37 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import { Country } from "../../../../shared/types";
+import Maybe from "graphql/tsutils/Maybe";
 
 type Props = {
-    country: Country;
+    name: string;
+    image?: Maybe<string>;
     onClick: () => void;
     isSelected?: boolean;
 };
 
-const CountryItem: React.FC<Props> = ({ country, onClick, isSelected }) => {
-    if (!country.flag) {
-        return null;
-    }
-
+const WizardListItem: React.FC<Props> = ({ name, image, onClick, isSelected }) => {
     return (
         <Container onClick={onClick} isSelected={isSelected}>
-            <Flag src={country.flag} alt={country.name} />
+            {image && <Logo src={image} alt={name} />}
 
-            <span>{country.name}</span>
+            <Name>{name}</Name>
         </Container>
     );
 };
 
-const Flag = styled.img`
+const Logo = styled.img`
     height: 30px;
     margin-bottom: 5px;
+`;
+
+const Name = styled.span`
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
 `;
 
 const Container = styled.div<{ isSelected?: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;  
+    justify-content: space-evenly;
     background-color: white;
     margin: 10px;
     width: 100px;
@@ -47,4 +50,4 @@ const Container = styled.div<{ isSelected?: boolean }>`
     }
 `;
 
-export default CountryItem;
+export default WizardListItem;

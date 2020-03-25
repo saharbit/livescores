@@ -2,7 +2,7 @@ import { gql } from "apollo-boost";
 import React, { ChangeEvent, useState } from "react";
 import { useWizardDispatch, useWizardState } from "./WizardContext";
 import { useQuery } from "@apollo/react-hooks";
-import LeagueItem from "./components/LeagueItem";
+import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -49,9 +49,16 @@ const LeaguesPicker = () => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             />
 
-            {leagues.map((league: League, index: number) => (
-                <LeagueItem key={index} league={league} onClick={() => selectLeague(league)} />
-            ))}
+            <LeaguesList>
+                {leagues.map((league: League, index: number) => (
+                    <WizardListItem
+                        key={index}
+                        name={league.name}
+                        image={league.logo}
+                        onClick={() => selectLeague(league)}
+                    />
+                ))}
+            </LeaguesList>
 
             <Link to="/teams">
                 <Button
@@ -68,5 +75,10 @@ const LeaguesPicker = () => {
 };
 
 const Container = styled.div``;
+
+const LeaguesList = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
 
 export default LeaguesPicker;
