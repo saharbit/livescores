@@ -4,6 +4,7 @@ import WizardRouter from "./wizard/WizardRouter";
 import { WizardProvider } from "./wizard/WizardContext";
 // @ts-ignore
 import Layout, { LayoutColumn } from "@kiwicom/orbit-components/lib/Layout";
+import "./styles/index.css";
 
 const App = () => {
     return (

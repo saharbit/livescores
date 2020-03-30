@@ -35,45 +35,45 @@ const CountriesPicker = () => {
         setSearchTerm("");
     }
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
     function isCountryIncludedInSearch(country: Country) {
         return country.name.toLowerCase().includes(searchTerm.toLowerCase());
     }
 
+    function isCountrySelected(country: Country) {
+        return !!selectedCountries.find(x => x.name === country.name);
+    }
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
         <Container>
-            <Header>
-                <h3>Choose your Countries</h3>
-                <span>skip</span>
-            </Header>
-            <InputContainer>
+            <HeaderContainer>
+                <Header>
+                    <h3>Choose your Countries</h3>
+                    <SkipButton>Skip</SkipButton>
+                </Header>
                 <InputField
                     placeholder={"Search for Country"}
                     value={searchTerm}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                     prefix={<Search />}
                 />
-            </InputContainer>
+            </HeaderContainer>
             <CountriesList>
-                {selectedCountries.map((country: Country, index: number) => (
-                    <WizardListItem
-                        key={index}
-                        name={country.name}
-                        image={country.flag}
-                        isSelected={true}
-                        onClick={() => removeCountry(country)}
-                    />
-                ))}
-                {data.countries.filter(isCountryIncludedInSearch).map((country: Country, index: number) => (
-                    <WizardListItem
-                        key={index}
-                        name={country.name}
-                        image={country.flag}
-                        onClick={() => selectCountry(country)}
-                    />
-                ))}
+                {data.countries.filter(isCountryIncludedInSearch).map((country: Country, index: number) => {
+                    const isSelected = isCountrySelected(country);
+
+                    return (
+                        <WizardListItem
+                            key={index}
+                            name={country.name}
+                            image={country.flag}
+                            isSelected={isSelected}
+                            onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
+                        />
+                    );
+                })}
             </CountriesList>
 
             <Link to="/leagues">
@@ -91,9 +91,16 @@ const CountriesPicker = () => {
 };
 
 const Container = styled.div``;
-const InputContainer = styled.div`
+
+const HeaderContainer = styled.div`
     padding: 0 30px;
     border-radius: 10px;
+    margin-bottom: 10px;
+`;
+
+const SkipButton = styled.span`
+    font-size: 10px;
+    opacity: 0.7;
 `;
 
 const Header = styled.div`
@@ -105,7 +112,6 @@ const Header = styled.div`
 
 const CountriesList = styled.div`
     display: flex;
-    flex-wrap: wrap;
 `;
 
 export default CountriesPicker;
