@@ -50,30 +50,33 @@ const CountriesPicker = () => {
         <Container>
             <HeaderContainer>
                 <Header>
-                    <h3>Choose your Countries</h3>
+                    <span>Choose your countries</span>
                     <SkipButton>Skip</SkipButton>
                 </Header>
                 <InputField
-                    placeholder={"Search for Country"}
+                    placeholder={"Search for country"}
                     value={searchTerm}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                     prefix={<Search />}
                 />
             </HeaderContainer>
             <CountriesList>
-                {data.countries.filter(isCountryIncludedInSearch).map((country: Country, index: number) => {
-                    const isSelected = isCountrySelected(country);
+                {data.countries
+                    .filter(isCountryIncludedInSearch)
+                    .sort((country: Country) => (isCountrySelected(country) ? -1 : 1))
+                    .map((country: Country, index: number) => {
+                        const isSelected = isCountrySelected(country);
 
-                    return (
-                        <WizardListItem
-                            key={index}
-                            name={country.name}
-                            image={country.flag}
-                            isSelected={isSelected}
-                            onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
-                        />
-                    );
-                })}
+                        return (
+                            <WizardListItem
+                                key={index}
+                                name={country.name}
+                                image={country.flag}
+                                isSelected={isSelected}
+                                onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
+                            />
+                        );
+                    })}
             </CountriesList>
 
             <Link to="/leagues">
@@ -93,7 +96,6 @@ const CountriesPicker = () => {
 const Container = styled.div``;
 
 const HeaderContainer = styled.div`
-    padding: 0 30px;
     border-radius: 10px;
     margin-bottom: 10px;
 `;
@@ -108,10 +110,13 @@ const Header = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
 `;
 
 const CountriesList = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 `;
 
 export default CountriesPicker;

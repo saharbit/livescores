@@ -36,6 +36,10 @@ const LeaguesPicker = () => {
         setSelectedLeagues([...selectedLeagues, league]);
     }
 
+    function isLeagueSelected(league: League) {
+        return !!selectedLeagues.find(x => x.id === league.id);
+    }
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
@@ -50,14 +54,19 @@ const LeaguesPicker = () => {
             />
 
             <LeaguesList>
-                {leagues.map((league: League, index: number) => (
-                    <WizardListItem
-                        key={index}
-                        name={league.name}
-                        image={league.logo}
-                        onClick={() => selectLeague(league)}
-                    />
-                ))}
+                {leagues.map((league: League, index: number) => {
+                    const isSelected = isLeagueSelected(league);
+
+                    return (
+                        <WizardListItem
+                            key={index}
+                            name={league.name}
+                            isSelected={isSelected}
+                            image={league.logo}
+                            onClick={() => (isSelected ? removeLeague(league) : selectLeague(league))}
+                        />
+                    );
+                })}
             </LeaguesList>
 
             <Link to="/teams">

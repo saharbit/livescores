@@ -14,9 +14,9 @@ type Props = {
 const WizardListItem: React.FC<Props> = ({ name, image, onClick, isSelected }) => {
     return (
         <Container onClick={onClick} isSelected={isSelected}>
-            <SelectItem isSelected={isSelected}>
+            <Select isSelected={isSelected}>
                 <StarEmpty size="small" customColor={isSelected ? "#000" : "#ffdb6e"} className="small-icon" />
-            </SelectItem>
+            </Select>
 
             {image && <Logo src={image} alt={name} />}
 
@@ -30,12 +30,12 @@ const Logo = styled.img`
     margin-bottom: 5px;
 `;
 
-const SelectItem = styled.div<{ isSelected?: boolean }>`
+const Select = styled.div<{ isSelected?: boolean }>`
     border: 1px solid #ffdb6e;
     background-color: white;
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
     position: absolute;
     right: 5px;
     top: 5px;
@@ -63,11 +63,14 @@ const Container = styled.div<{ isSelected?: boolean }>`
     height: 120px;
     border: 1px solid white;
     position: relative;
+    margin: 5px;
 
-    &:hover {
-        cursor: pointer;
-        opacity: 0.7;
-        border: 1px solid #b9b9b9;
+    @media (min-width: 768px) {
+        &:hover {
+            cursor: pointer;
+            opacity: 0.7;
+            border: 1px solid #b9b9b9;
+        }
     }
 `;
 

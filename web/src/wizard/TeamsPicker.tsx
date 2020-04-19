@@ -38,7 +38,6 @@ const TeamsPicker = () => {
 
     return (
         <div>
-            <h1>teams</h1>
             <TeamsList>
                 {teams.map((team: Team) => (
                     <WizardListItem
