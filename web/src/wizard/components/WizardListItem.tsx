@@ -58,12 +58,14 @@ const Container = styled.div<{ isSelected?: boolean }>`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    position: relative;
+    
     background-color: white;
     width: 100px;
     height: 120px;
     border: 1px solid white;
-    position: relative;
-    margin: 5px;
+    border-radius: 10px;
+    ${({ isSelected }) => isSelected && "border: 1px solid #ffdb6e;"};
 
     @media (min-width: 768px) {
         &:hover {
