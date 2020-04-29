@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 // @ts-ignore
 import { Button, InputField } from "@kiwicom/orbit-components";
+import WizardContinueButton from "./components/WizardContinueButton";
 
 const GET_LEAGUES = gql`
     query Leagues($countries: [String]!) {
@@ -68,23 +69,21 @@ const LeaguesPicker = () => {
                     );
                 })}
             </LeaguesList>
-
-            <Link to="/teams">
-                <Button
-                    onClick={() => {
-                        dispatch({ type: "setLeagues", payload: selectedLeagues });
-                    }}
-                    disabled={selectedLeagues.length === 0}
-                >
-                    Continue
-                </Button>
-            </Link>
+            <WizardContinueButton
+                link="/teams"
+                onClick={() => {
+                    dispatch({ type: "setLeagues", payload: selectedLeagues });
+                }}
+                disabled={selectedLeagues.length === 0}
+            />
         </Container>
     );
 };
 
-const Container = styled.div``;
-
+const Container = styled.div`
+    width: 100%;
+    max-width: 800px;
+`;
 const LeaguesList = styled.div`
     display: flex;
     flex-wrap: wrap;

@@ -10,6 +10,7 @@ import Search from "@kiwicom/orbit-components/lib/icons/Search";
 import { Link } from "react-router-dom";
 import { useWizardDispatch } from "./WizardContext";
 import WizardListItem from "./components/WizardListItem";
+import WizardContinueButton from "./components/WizardContinueButton";
 
 export const GET_COUNTRIES = gql`
     {
@@ -78,22 +79,21 @@ const CountriesPicker = () => {
                         );
                     })}
             </CountriesList>
-
-            <Link to="/leagues">
-                <Button
-                    onClick={() => {
-                        dispatch({ type: "setCountries", payload: selectedCountries });
-                    }}
-                    disabled={selectedCountries.length === 0}
-                >
-                    Continue
-                </Button>
-            </Link>
+            <WizardContinueButton
+                link="/leagues"
+                onClick={() => {
+                    dispatch({ type: "setCountries", payload: selectedCountries });
+                }}
+                disabled={selectedCountries.length === 0}
+            />
         </Container>
     );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+    width: 100%;
+    max-width: 800px;
+`;
 
 const HeaderContainer = styled.div`
     border-radius: 10px;
