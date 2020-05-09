@@ -92,7 +92,7 @@ const CountriesPicker = () => {
 
 const Container = styled.div`
     width: 100%;
-    max-width: 800px;
+    max-height: 100vh;
 `;
 
 const HeaderContainer = styled.div`
@@ -116,6 +116,7 @@ const Header = styled.div`
 const CountriesList = styled.div`
     display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
 `;
 
 export default CountriesPicker;

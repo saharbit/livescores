@@ -82,7 +82,6 @@ const LeaguesPicker = () => {
 
 const Container = styled.div`
     width: 100%;
-    max-width: 800px;
 `;
 const LeaguesList = styled.div`
     display: flex;

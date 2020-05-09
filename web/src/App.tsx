@@ -8,8 +8,8 @@ import "./styles/index.css";
 
 const App = () => {
     return (
-        <Layout type="MMB">
-            <LayoutColumn>
+        // <Layout type="MMB">
+        //     <LayoutColumn>
                 <Router>
                     <Switch>
                         <Route path="/">
@@ -19,8 +19,8 @@ const App = () => {
                         </Route>
                     </Switch>
                 </Router>
-            </LayoutColumn>
-        </Layout>
+            // </LayoutColumn>
+        // </Layout>
     );
 };
 
