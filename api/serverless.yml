@@ -1,6 +1,6 @@
-service: livescores
+service: livescores-api
 
-app: myapp
+app: livescores
 org: saharbit
 
 provider:

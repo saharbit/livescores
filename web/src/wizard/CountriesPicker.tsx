@@ -1,13 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Country } from "../../../shared/types";
 import styled from "styled-components";
-// @ts-ignore
-import { Button, InputField } from "@kiwicom/orbit-components";
+import { InputField } from "@kiwicom/orbit-components";
 // @ts-ignore
 import Search from "@kiwicom/orbit-components/lib/icons/Search";
-import { Link } from "react-router-dom";
 import { useWizardDispatch } from "./WizardContext";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
@@ -28,7 +26,7 @@ const CountriesPicker = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
 
     function removeCountry(country: Country) {
-        setSelectedCountries(selectedCountries.filter(x => x.name !== country.name));
+        setSelectedCountries(selectedCountries.filter((x) => x.name !== country.name));
     }
 
     function selectCountry(country: Country) {
@@ -41,7 +39,7 @@ const CountriesPicker = () => {
     }
 
     function isCountrySelected(country: Country) {
-        return !!selectedCountries.find(x => x.name === country.name);
+        return !!selectedCountries.find((x) => x.name === country.name);
     }
 
     if (loading) return <p>Loading...</p>;
@@ -57,7 +55,7 @@ const CountriesPicker = () => {
                 <InputField
                     placeholder={"Search for country"}
                     value={searchTerm}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                    onChange={(event: any) => setSearchTerm(event.target.value)}
                     prefix={<Search />}
                 />
             </HeaderContainer>

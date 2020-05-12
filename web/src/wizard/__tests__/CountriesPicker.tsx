@@ -37,7 +37,7 @@ describe("Countries Picker", () => {
     });
 
     test("should be able to search for a country", async () => {
-        let countryInput = await screen.getByPlaceholderText("Country");
+        let countryInput = await screen.getByPlaceholderText("Search for country");
         let searchString = "isr";
         fireEvent.change(countryInput, {
             target: { value: searchString }

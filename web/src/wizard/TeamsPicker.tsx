@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { useWizardDispatch, useWizardState } from "./WizardContext";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
@@ -8,7 +8,6 @@ import styled from "styled-components";
 import WizardContinueButton from "./components/WizardContinueButton";
 // @ts-ignore
 import { Search } from "@kiwicom/orbit-components/lib/icons";
-// @ts-ignore
 import { InputField } from "@kiwicom/orbit-components";
 
 const GET_TEAMS = gql`
@@ -56,7 +55,7 @@ const TeamsPicker = () => {
             <InputField
                 placeholder={"Search for team"}
                 value={searchTerm}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                onChange={(e: any) => setSearchTerm(e.target.value)}
                 prefix={<Search />}
             />
 

@@ -1,13 +1,11 @@
 import { gql } from "apollo-boost";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { useWizardDispatch, useWizardState } from "./WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-// @ts-ignore
-import { Button, InputField } from "@kiwicom/orbit-components";
+import { InputField } from "@kiwicom/orbit-components";
 import WizardContinueButton from "./components/WizardContinueButton";
 
 const GET_LEAGUES = gql`
@@ -51,7 +49,7 @@ const LeaguesPicker = () => {
             <InputField
                 value={searchTerm}
                 placeholder={"League"}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                onChange={(e: any) => setSearchTerm(e.target.value)}
             />
 
             <LeaguesList>
