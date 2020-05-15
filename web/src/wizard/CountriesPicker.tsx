@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Country } from "../../../shared/types";
-import styled from "styled-components";
 import { InputField } from "@kiwicom/orbit-components";
-// @ts-ignore
 import Search from "@kiwicom/orbit-components/lib/icons/Search";
 import { useWizardDispatch } from "./WizardContext";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
+import { WizardContainer, WizardList } from "./components/common";
 
 export const GET_COUNTRIES = gql`
     {
@@ -46,37 +45,34 @@ const CountriesPicker = () => {
     if (error) return <p>Error :(</p>;
 
     return (
-        <Container>
-            <HeaderContainer>
-                <Header>
-                    <span>Choose your countries</span>
-                    <SkipButton>Skip</SkipButton>
-                </Header>
+        <>
+            <WizardContainer>
                 <InputField
                     placeholder={"Search for country"}
                     value={searchTerm}
                     onChange={(event: any) => setSearchTerm(event.target.value)}
                     prefix={<Search />}
                 />
-            </HeaderContainer>
-            <CountriesList>
-                {data.countries
-                    .filter(isCountryIncludedInSearch)
-                    .sort((country: Country) => (isCountrySelected(country) ? -1 : 1))
-                    .map((country: Country, index: number) => {
-                        const isSelected = isCountrySelected(country);
+                <WizardList>
+                    {data.countries
+                        .filter(isCountryIncludedInSearch)
+                        .sort((country: Country) => (isCountrySelected(country) ? -1 : 1))
+                        .map((country: Country, index: number) => {
+                            const isSelected = isCountrySelected(country);
 
-                        return (
-                            <WizardListItem
-                                key={index}
-                                name={country.name}
-                                image={country.flag}
-                                isSelected={isSelected}
-                                onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
-                            />
-                        );
-                    })}
-            </CountriesList>
+                            return (
+                                <WizardListItem
+                                    key={index}
+                                    name={country.name}
+                                    image={country.flag}
+                                    isSelected={isSelected}
+                                    onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
+                                />
+                            );
+                        })}
+                </WizardList>
+            </WizardContainer>
+
             <WizardContinueButton
                 link="/leagues"
                 onClick={() => {
@@ -84,37 +80,8 @@ const CountriesPicker = () => {
                 }}
                 disabled={selectedCountries.length === 0}
             />
-        </Container>
+        </>
     );
 };
-
-const Container = styled.div`
-    width: 100%;
-    max-height: 100vh;
-`;
-
-const HeaderContainer = styled.div`
-    border-radius: 10px;
-    margin-bottom: 10px;
-`;
-
-const SkipButton = styled.span`
-    font-size: 10px;
-    opacity: 0.7;
-`;
-
-const Header = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-`;
-
-const CountriesList = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    overflow: scroll;
-`;
 
 export default CountriesPicker;

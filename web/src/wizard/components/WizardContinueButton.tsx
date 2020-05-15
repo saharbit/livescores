@@ -10,12 +10,11 @@ interface Props {
 
 const WizardContinueButton = ({ link, onClick, disabled }: Props) => {
     return (
-        <Link to={link} className="wizard-link">
+        <Link to={link} className="container fixed bottom-0 mx-auto">
             <Button
                 onClick={onClick}
                 disabled={disabled}
-                // @ts-ignore
-                className="continue-button"
+                fullWidth
             >
                 Continue
             </Button>

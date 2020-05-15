@@ -4,9 +4,9 @@ import { useWizardDispatch, useWizardState } from "./WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";
-import styled from "styled-components";
 import { InputField } from "@kiwicom/orbit-components";
 import WizardContinueButton from "./components/WizardContinueButton";
+import { WizardContainer, WizardList } from "./components/common";
 
 const GET_LEAGUES = gql`
     query Leagues($countries: [String]!) {
@@ -24,11 +24,11 @@ const LeaguesPicker = () => {
     const { countries } = useWizardState();
     const dispatch = useWizardDispatch();
     const { loading, error, data } = useQuery(GET_LEAGUES, {
-        variables: { countries: countries?.map(country => country.name) }
+        variables: { countries: countries?.map((country) => country.name) },
     });
 
     function removeLeague(league: League) {
-        setSelectedLeagues(selectedLeagues.filter(x => x.name !== league.name));
+        setSelectedLeagues(selectedLeagues.filter((x) => x.name !== league.name));
     }
 
     function selectLeague(league: League) {
@@ -36,7 +36,7 @@ const LeaguesPicker = () => {
     }
 
     function isLeagueSelected(league: League) {
-        return !!selectedLeagues.find(x => x.id === league.id);
+        return !!selectedLeagues.find((x) => x.id === league.id);
     }
 
     if (loading) return <p>Loading...</p>;
@@ -45,14 +45,14 @@ const LeaguesPicker = () => {
     const { leaguesByCountryNames: leagues } = data;
 
     return (
-        <Container>
+        <WizardContainer>
             <InputField
                 value={searchTerm}
-                placeholder={"League"}
-                onChange={(e: any) => setSearchTerm(e.target.value)}
+                placeholder={"Search for league"}
+                onChange={(event: any) => setSearchTerm(event.target.value)}
             />
 
-            <LeaguesList>
+            <WizardList>
                 {leagues.map((league: League, index: number) => {
                     const isSelected = isLeagueSelected(league);
 
@@ -66,7 +66,7 @@ const LeaguesPicker = () => {
                         />
                     );
                 })}
-            </LeaguesList>
+            </WizardList>
             <WizardContinueButton
                 link="/teams"
                 onClick={() => {
@@ -74,16 +74,8 @@ const LeaguesPicker = () => {
                 }}
                 disabled={selectedLeagues.length === 0}
             />
-        </Container>
+        </WizardContainer>
     );
 };
-
-const Container = styled.div`
-    width: 100%;
-`;
-const LeaguesList = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
 
 export default LeaguesPicker;

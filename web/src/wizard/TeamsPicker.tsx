@@ -4,11 +4,10 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
-import styled from "styled-components";
 import WizardContinueButton from "./components/WizardContinueButton";
-// @ts-ignore
-import { Search } from "@kiwicom/orbit-components/lib/icons";
+import Search from "@kiwicom/orbit-components/lib/icons/Search";
 import { InputField } from "@kiwicom/orbit-components";
+import { WizardContainer, WizardList } from "./components/common";
 
 const GET_TEAMS = gql`
     query Teams($leagues: [Int]!) {
@@ -26,11 +25,11 @@ const TeamsPicker = () => {
     const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const { loading, error, data } = useQuery(GET_TEAMS, {
-        variables: { leagues: leagues?.map(league => league.id) }
+        variables: { leagues: leagues?.map((league) => league.id) },
     });
 
     function removeTeam(team: Team) {
-        setSelectedTeams(selectedTeams.filter(x => x.id !== team.id));
+        setSelectedTeams(selectedTeams.filter((x) => x.id !== team.id));
     }
 
     function selectTeam(team: Team) {
@@ -42,7 +41,7 @@ const TeamsPicker = () => {
     }
 
     function isTeamSelected(team: Team) {
-        return !!selectedTeams.find(x => x.name === team.name);
+        return !!selectedTeams.find((x) => x.name === team.name);
     }
 
     if (loading) return <p>Loading...</p>;
@@ -51,15 +50,15 @@ const TeamsPicker = () => {
     const { teamsByLeagueIds: teams } = data;
 
     return (
-        <Container>
+        <WizardContainer>
             <InputField
                 placeholder={"Search for team"}
                 value={searchTerm}
-                onChange={(e: any) => setSearchTerm(e.target.value)}
+                onChange={(event: any) => setSearchTerm(event.target.value)}
                 prefix={<Search />}
             />
 
-            <TeamsList>
+            <WizardList>
                 {teams
                     .filter(isTeamIncludedInSearch)
                     .sort((team: Team) => (isTeamSelected(team) ? -1 : 1))
@@ -71,12 +70,12 @@ const TeamsPicker = () => {
                                 key={team.id}
                                 name={team.name}
                                 image={team.logo}
-                                onClick={() => selectTeam(team)}
+                                onClick={() => (isSelected ? removeTeam(team) : selectTeam(team))}
                                 isSelected={isSelected}
                             />
                         );
                     })}
-            </TeamsList>
+            </WizardList>
             <WizardContinueButton
                 link="/teams"
                 onClick={() => {
@@ -84,16 +83,8 @@ const TeamsPicker = () => {
                 }}
                 disabled={selectedTeams.length === 0}
             />
-        </Container>
+        </WizardContainer>
     );
 };
-
-const Container = styled.div`
-    width: 100%;
-`;
-const TeamsList = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
 
 export default TeamsPicker;

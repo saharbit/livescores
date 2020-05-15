@@ -1,14 +1,3 @@
-.small-icon {
-    height: 12px!important;
-    width: 12px!important;
-}
-
-.wizard-link {
-    position: fixed;
-    bottom: 0;
-    width: inherit;
-}
-
-.continue-button {
-    width: inherit !important;
+.wizard-list {
+    max-height: calc(100vh - 115px);
 }

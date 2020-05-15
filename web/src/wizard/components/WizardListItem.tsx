@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Maybe from "graphql/tsutils/Maybe";
-// @ts-ignore
 import StarEmpty from "@kiwicom/orbit-components/lib/icons/StarEmpty";
 
 type Props = {
@@ -9,13 +8,14 @@ type Props = {
     image?: Maybe<string>;
     onClick: () => void;
     isSelected?: boolean;
+    className?: string;
 };
 
-const WizardListItem: React.FC<Props> = ({ name, image, onClick, isSelected }) => {
+const WizardListItem: React.FC<Props> = ({ name, image, onClick, isSelected, className }) => {
     return (
-        <Container onClick={onClick} isSelected={isSelected}>
+        <Container onClick={onClick} isSelected={isSelected} className={className}>
             <Select isSelected={isSelected}>
-                <StarEmpty size="small" customColor={isSelected ? "#000" : "#ffdb6e"} className="small-icon" />
+                <StarEmpty size="small" customColor={isSelected ? "#000" : "#ffdb6e"} className="h-1 w-1" />
             </Select>
 
             {image && <Logo src={image} alt={name} />}
@@ -48,8 +48,8 @@ const Select = styled.div<{ isSelected?: boolean }>`
 `;
 
 const Name = styled.span`
-    font-weight: bold;
-    font-size: 12px;
+    font-weight: 500;
+    font-size: 14px;
     text-align: center;
 `;
 
@@ -59,10 +59,9 @@ const Container = styled.div<{ isSelected?: boolean }>`
     align-items: center;
     justify-content: space-evenly;
     position: relative;
-    
+
     background-color: white;
-    width: 100px;
-    height: 120px;
+    min-height: 120px;
     border: 1px solid white;
     border-radius: 10px;
     ${({ isSelected }) => isSelected && "border: 1px solid #ffdb6e;"};
