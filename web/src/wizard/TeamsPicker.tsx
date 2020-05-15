@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useWizardDispatch, useWizardState } from "./WizardContext";
+import { SET_TEAMS, useWizardDispatch, useWizardState } from "./WizardContext";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
@@ -7,7 +7,9 @@ import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
 import Search from "@kiwicom/orbit-components/lib/icons/Search";
 import { InputField } from "@kiwicom/orbit-components";
-import { WizardContainer, WizardList } from "./components/common";
+import WizardContainer from "./components/WizardContainer";
+import WizardList from "./components/WizardList";
+import { Loading } from "@kiwicom/orbit-components/lib";
 
 const GET_TEAMS = gql`
     query Teams($leagues: [Int]!) {
@@ -44,11 +46,6 @@ const TeamsPicker = () => {
         return !!selectedTeams.find((x) => x.name === team.name);
     }
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
-    const { teamsByLeagueIds: teams } = data;
-
     return (
         <WizardContainer>
             <InputField
@@ -56,30 +53,34 @@ const TeamsPicker = () => {
                 value={searchTerm}
                 onChange={(event: any) => setSearchTerm(event.target.value)}
                 prefix={<Search />}
+                disabled={loading}
             />
+            {loading ? (
+                <Loading />
+            ) : (
+                <WizardList>
+                    {data.teamsByLeagueIds
+                        .filter(isTeamIncludedInSearch)
+                        .sort((team: Team) => (isTeamSelected(team) ? -1 : 1))
+                        .map((team: Team) => {
+                            const isSelected = isTeamSelected(team);
 
-            <WizardList>
-                {teams
-                    .filter(isTeamIncludedInSearch)
-                    .sort((team: Team) => (isTeamSelected(team) ? -1 : 1))
-                    .map((team: Team) => {
-                        const isSelected = isTeamSelected(team);
-
-                        return (
-                            <WizardListItem
-                                key={team.id}
-                                name={team.name}
-                                image={team.logo}
-                                onClick={() => (isSelected ? removeTeam(team) : selectTeam(team))}
-                                isSelected={isSelected}
-                            />
-                        );
-                    })}
-            </WizardList>
+                            return (
+                                <WizardListItem
+                                    key={team.id}
+                                    name={team.name}
+                                    image={team.logo}
+                                    onClick={() => (isSelected ? removeTeam(team) : selectTeam(team))}
+                                    isSelected={isSelected}
+                                />
+                            );
+                        })}
+                </WizardList>
+            )}
             <WizardContinueButton
                 link="/teams"
                 onClick={() => {
-                    dispatch({ type: "setTeams", payload: selectedTeams });
+                    dispatch({ type: SET_TEAMS, payload: selectedTeams });
                 }}
                 disabled={selectedTeams.length === 0}
             />

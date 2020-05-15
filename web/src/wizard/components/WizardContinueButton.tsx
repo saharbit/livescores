@@ -10,7 +10,7 @@ interface Props {
 
 const WizardContinueButton = ({ link, onClick, disabled }: Props) => {
     return (
-        <Link to={link} className="container fixed bottom-0 mx-auto">
+        <Link to={link} className="container fixed bottom-0 mx-auto wizard-link">
             <Button
                 onClick={onClick}
                 disabled={disabled}

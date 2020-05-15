@@ -1,12 +1,14 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { useWizardDispatch, useWizardState } from "./WizardContext";
+import { SET_LEAGUES, useWizardDispatch, useWizardState } from "./WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";
 import { InputField } from "@kiwicom/orbit-components";
 import WizardContinueButton from "./components/WizardContinueButton";
-import { WizardContainer, WizardList } from "./components/common";
+import WizardContainer from "./components/WizardContainer";
+import WizardList from "./components/WizardList";
+import { Loading } from "@kiwicom/orbit-components/lib";
 
 const GET_LEAGUES = gql`
     query Leagues($countries: [String]!) {
@@ -39,38 +41,37 @@ const LeaguesPicker = () => {
         return !!selectedLeagues.find((x) => x.id === league.id);
     }
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
-    const { leaguesByCountryNames: leagues } = data;
-
     return (
         <WizardContainer>
             <InputField
                 value={searchTerm}
                 placeholder={"Search for league"}
                 onChange={(event: any) => setSearchTerm(event.target.value)}
+                disabled={loading}
             />
+            {loading ? (
+                <Loading />
+            ) : (
+                <WizardList>
+                    {data.leaguesByCountryNames.map((league: League, index: number) => {
+                        const isSelected = isLeagueSelected(league);
 
-            <WizardList>
-                {leagues.map((league: League, index: number) => {
-                    const isSelected = isLeagueSelected(league);
-
-                    return (
-                        <WizardListItem
-                            key={index}
-                            name={league.name}
-                            isSelected={isSelected}
-                            image={league.logo}
-                            onClick={() => (isSelected ? removeLeague(league) : selectLeague(league))}
-                        />
-                    );
-                })}
-            </WizardList>
+                        return (
+                            <WizardListItem
+                                key={index}
+                                name={league.name}
+                                isSelected={isSelected}
+                                image={league.logo}
+                                onClick={() => (isSelected ? removeLeague(league) : selectLeague(league))}
+                            />
+                        );
+                    })}
+                </WizardList>
+            )}
             <WizardContinueButton
                 link="/teams"
                 onClick={() => {
-                    dispatch({ type: "setLeagues", payload: selectedLeagues });
+                    dispatch({ type: SET_LEAGUES, payload: selectedLeagues });
                 }}
                 disabled={selectedLeagues.length === 0}
             />

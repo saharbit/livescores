@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Maybe from "graphql/tsutils/Maybe";
 import StarEmpty from "@kiwicom/orbit-components/lib/icons/StarEmpty";
+import { motion } from "framer-motion";
 
 type Props = {
     name: string;
@@ -13,15 +14,17 @@ type Props = {
 
 const WizardListItem: React.FC<Props> = ({ name, image, onClick, isSelected, className }) => {
     return (
-        <Container onClick={onClick} isSelected={isSelected} className={className}>
-            <Select isSelected={isSelected}>
-                <StarEmpty size="small" customColor={isSelected ? "#000" : "#ffdb6e"} className="h-1 w-1" />
-            </Select>
+        <motion.div whileTap={{ scale: 0.9 }}>
+            <Container onClick={onClick} isSelected={isSelected} className={className}>
+                <Select isSelected={isSelected}>
+                    <StarEmpty size="small" customColor={isSelected ? "#000" : "#ffdb6e"} className="h-1 w-1" />
+                </Select>
 
-            {image && <Logo src={image} alt={name} />}
+                {image && <Logo src={image} alt={name} />}
 
-            <Name>{name}</Name>
-        </Container>
+                <Name>{name}</Name>
+            </Container>
+        </motion.div>
     );
 };
 
@@ -33,8 +36,8 @@ const Logo = styled.img`
 const Select = styled.div<{ isSelected?: boolean }>`
     border: 1px solid #ffdb6e;
     background-color: white;
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
     border-radius: 9px;
     position: absolute;
     right: 5px;
@@ -48,7 +51,6 @@ const Select = styled.div<{ isSelected?: boolean }>`
 `;
 
 const Name = styled.span`
-    font-weight: 500;
     font-size: 14px;
     text-align: center;
 `;
@@ -64,12 +66,11 @@ const Container = styled.div<{ isSelected?: boolean }>`
     min-height: 120px;
     border: 1px solid white;
     border-radius: 10px;
-    ${({ isSelected }) => isSelected && "border: 1px solid #ffdb6e;"};
+    ${({ isSelected }) => isSelected && "border: 2px solid #ffdb6e;"};
 
     @media (min-width: 768px) {
         &:hover {
             cursor: pointer;
-            opacity: 0.7;
             border: 1px solid #b9b9b9;
         }
     }

@@ -7,10 +7,14 @@ interface State {
     teams?: Team[];
 }
 
+export const SET_COUNTRIES = "SET_COUNTRIES";
+export const SET_LEAGUES = "SET_LEAGUES";
+export const SET_TEAMS = "SET_TEAMS";
+
 type Action =
-    | { type: "setCountries"; payload: Country[] }
-    | { type: "setLeagues"; payload: League[] }
-    | { type: "setTeams"; payload: Team[] };
+    | { type: typeof SET_COUNTRIES; payload: Country[] }
+    | { type: typeof SET_LEAGUES; payload: League[] }
+    | { type: typeof SET_TEAMS; payload: Team[] };
 
 type Dispatch = (action: Action) => void;
 
@@ -20,20 +24,20 @@ type ProviderProps = {
 
 function wizardReducer(state: State, action: Action) {
     switch (action.type) {
-        case "setCountries":
+        case SET_COUNTRIES:
             return {
                 ...state,
-                countries: action.payload
+                countries: action.payload,
             };
-        case "setLeagues":
+        case SET_LEAGUES:
             return {
                 ...state,
-                leagues: action.payload
+                leagues: action.payload,
             };
-        case "setTeams":
+        case SET_TEAMS:
             return {
                 ...state,
-                teams: action.payload
+                teams: action.payload,
             };
         default: {
             return state;
