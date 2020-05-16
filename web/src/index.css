@@ -1,10 +1,8 @@
 body {
-    margin: 0;
     font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
         "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    padding-top: 10px;
     background-color: rgba(184, 227, 198, 0.4);
 }
 
@@ -23,4 +21,9 @@ a {
 .wizard-link {
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+#root {
+    max-height: calc(100vh - 52px);
+    overflow: scroll;
 }

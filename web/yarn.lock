@@ -1158,18 +1158,18 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@kiwicom/orbit-components@0.85.0-rc.2":
-  version "0.85.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-components/-/orbit-components-0.85.0-rc.2.tgz#df2227f1edab3b98cca1c1cfc0882add6adc12b9"
-  integrity sha512-MxRDd82h4NN+fgNQMfj8AYahpmO1oQQSdC2fDJO+kFq0hFYQyjM6cQ1MNbKY3OWffnGnR+Fl90zlF0kaoVB1HA==
+"@kiwicom/orbit-components@^0.85.0":
+  version "0.85.0"
+  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-components/-/orbit-components-0.85.0.tgz#29cae4e2e229283a6ba4d55eaa1d34f565f2ffeb"
+  integrity sha512-zwlu9YA1D9pwVRrDtpABX98h8BjWzMVtMF+hvrPCe5C/PFztxqSqr+NRDyJu45HLYrmui4Li8rnbCOeVnWbl9Q==
   dependencies:
     "@adeira/js" "^1.2.2"
-    "@kiwicom/orbit-design-tokens" "~0.9.0"
+    "@kiwicom/orbit-design-tokens" "~0.10.0"
 
-"@kiwicom/orbit-design-tokens@~0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-design-tokens/-/orbit-design-tokens-0.9.0.tgz#c031af02f46d8b67ebda16e10937a36db9377a62"
-  integrity sha512-5kaZfJBUvhFqqxwDoPTKuM7VzHdWmGcTNhWvBYDveoi4th1dUNEkKewk6bL5oMLEfW63DjYiqT6bUXDhO4QQdQ==
+"@kiwicom/orbit-design-tokens@~0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@kiwicom/orbit-design-tokens/-/orbit-design-tokens-0.10.0.tgz#759fe60398003edbb5712541e59fb97b06b356c9"
+  integrity sha512-8kTLOp0KxwMwDo+no7fF4M5w1pAttW3Qs32QrFcWp0FMc8Z//qUAeBo2N+kvJYyT0+6rUPIv6arFPEyW5ZUfBw==
   dependencies:
     ramda "^0.27.0"
 
