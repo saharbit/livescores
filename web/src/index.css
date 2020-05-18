@@ -17,13 +17,3 @@ a {
 *:focus {
     outline: none !important;
 }
-
-.wizard-link {
-    left: 50%;
-    transform: translate(-50%, 0);
-}
-
-#root {
-    max-height: calc(100vh - 52px);
-    overflow: scroll;
-}

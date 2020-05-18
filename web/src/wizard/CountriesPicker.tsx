@@ -43,39 +43,36 @@ const CountriesPicker = () => {
     }
 
     return (
-        <>
-            <WizardContainer>
-                <InputField
-                    placeholder={"Search for country"}
-                    value={searchTerm}
-                    onChange={(event: any) => setSearchTerm(event.target.value)}
-                    prefix={<Search />}
-                    disabled={loading}
-                />
-                {loading ? (
-                    <Loading />
-                ) : (
-                    <WizardList>
-                        {data.countries
-                            .filter(isCountryIncludedInSearch)
-                            .sort((country: Country) => (isCountrySelected(country) ? -1 : 1))
-                            .map((country: Country, index: number) => {
-                                const isSelected = isCountrySelected(country);
+        <WizardContainer>
+            <InputField
+                placeholder={"Search for country"}
+                value={searchTerm}
+                onChange={(event: any) => setSearchTerm(event.target.value)}
+                prefix={<Search />}
+                disabled={loading}
+            />
+            {loading ? (
+                <Loading />
+            ) : (
+                <WizardList>
+                    {data.countries
+                        .filter(isCountryIncludedInSearch)
+                        .sort((country: Country) => (isCountrySelected(country) ? -1 : 1))
+                        .map((country: Country, index: number) => {
+                            const isSelected = isCountrySelected(country);
 
-                                return (
-                                    <WizardListItem
-                                        key={index}
-                                        name={country.name}
-                                        image={country.flag}
-                                        isSelected={isSelected}
-                                        onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
-                                    />
-                                );
-                            })}
-                    </WizardList>
-                )}
-            </WizardContainer>
-
+                            return (
+                                <WizardListItem
+                                    key={index}
+                                    name={country.name}
+                                    image={country.flag}
+                                    isSelected={isSelected}
+                                    onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
+                                />
+                            );
+                        })}
+                </WizardList>
+            )}
             <WizardContinueButton
                 link="/leagues"
                 onClick={() => {
@@ -83,7 +80,7 @@ const CountriesPicker = () => {
                 }}
                 disabled={selectedCountries.length === 0}
             />
-        </>
+        </WizardContainer>
     );
 };
 
