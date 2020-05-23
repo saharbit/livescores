@@ -5,6 +5,7 @@ export default gql`
         countries: [Country]
         leaguesByCountryNames(countryNames: [String]): [League]
         teamsByLeagueIds(leagueIds: [Int]): [Team]
+        upcomingFixturesByTeamIds(teamIds: [Int]): [Fixture]
     }
 
     type Country {
@@ -22,5 +23,13 @@ export default gql`
         id: Int!
         name: String!
         logo: String
+    }
+
+    type Fixture {
+        id: Int!
+        date: String!
+        venue: String!
+        homeTeam: Team!
+        awayTeam: Team!
     }
 `;

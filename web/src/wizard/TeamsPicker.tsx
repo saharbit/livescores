@@ -5,8 +5,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
-import Search from "@kiwicom/orbit-components/lib/icons/Search";
-import { InputField } from "@kiwicom/orbit-components";
 import WizardContainer from "./components/WizardContainer";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";

@@ -4,7 +4,6 @@ import { SET_LEAGUES, useWizardDispatch, useWizardState } from "../context/Wizar
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";
-import { InputField } from "@kiwicom/orbit-components";
 import WizardContinueButton from "./components/WizardContinueButton";
 import WizardContainer from "./components/WizardContainer";
 import WizardList from "./components/WizardList";
