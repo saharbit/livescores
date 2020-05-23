@@ -1,10 +1,7 @@
-import styled from "styled-components";
 import React from "react";
 
-const List = styled.div``;
-
 const WizardList: React.FC = ({ children }) => {
-    return <List className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-8 wizard-list">{children}</List>;
+    return <div className="grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-8">{children}</div>;
 };
 
 export default WizardList;

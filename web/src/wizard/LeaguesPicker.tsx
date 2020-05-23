@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { SET_LEAGUES, useWizardDispatch, useWizardState } from "./WizardContext";
+import { SET_LEAGUES, useWizardDispatch, useWizardState } from "../context/WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";

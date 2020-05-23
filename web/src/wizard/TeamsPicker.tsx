@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SET_TEAMS, useWizardDispatch, useWizardState } from "./WizardContext";
+import { SET_TEAMS, useWizardDispatch, useWizardState } from "../context/WizardContext";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
@@ -78,7 +78,7 @@ const TeamsPicker = () => {
                 </WizardList>
             )}
             <WizardContinueButton
-                link="/teams"
+                link="/home"
                 onClick={() => {
                     dispatch({ type: SET_TEAMS, payload: selectedTeams });
                 }}

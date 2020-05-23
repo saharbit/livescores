@@ -1,19 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import WizardRouter from "./wizard/WizardRouter";
-import { WizardProvider } from "./wizard/WizardContext";
+import CountriesPicker from "./wizard/CountriesPicker";
+import LeaguesPicker from "./wizard/LeaguesPicker";
+import TeamsPicker from "./wizard/TeamsPicker";
+import Home from "./home/Home";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route path="/">
-                    <WizardProvider>
-                        <WizardRouter />
-                    </WizardProvider>
-                </Route>
-            </Switch>
-        </Router>
+        <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<CountriesPicker />} />
+            <Route path="/leagues" element={<LeaguesPicker />} />
+            <Route path="/teams" element={<TeamsPicker />} />
+        </Routes>
     );
 };
 

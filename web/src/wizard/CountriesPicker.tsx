@@ -4,7 +4,7 @@ import { gql } from "apollo-boost";
 import { Country } from "../../../shared/types";
 import { InputField, Loading } from "@kiwicom/orbit-components";
 import Search from "@kiwicom/orbit-components/lib/icons/Search";
-import { SET_COUNTRIES, useWizardDispatch } from "./WizardContext";
+import { SET_COUNTRIES, useWizardDispatch } from "../context/WizardContext";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
 import WizardContainer from "./components/WizardContainer";

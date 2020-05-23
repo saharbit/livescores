@@ -11,7 +11,7 @@ interface Props {
 const WizardContinueButton: React.FC<Props> = ({ link, onClick, disabled }) => {
     return (
         <Link to={link} className="container xl:max-w-screen-lg fixed bottom-0">
-            <Button onClick={onClick} fullWidth type={disabled ? "secondary" : "primary"}>
+            <Button onClick={onClick} fullWidth disabled={disabled}>
                 Continue
             </Button>
         </Link>
