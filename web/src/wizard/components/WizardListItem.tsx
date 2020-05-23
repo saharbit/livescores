@@ -64,14 +64,14 @@ const Container = styled.div<{ isSelected?: boolean }>`
 
     background-color: white;
     min-height: 120px;
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: 10px;
     ${({ isSelected }) => isSelected && "border: 2px solid #ffdb6e;"};
 
     @media (min-width: 768px) {
         &:hover {
             cursor: pointer;
-            border: 1px solid #b9b9b9;
+            border: 2px solid #b9b9b9;
         }
     }
 `;

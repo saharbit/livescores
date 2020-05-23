@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Country } from "../../../shared/types";
-import { InputField, Loading } from "@kiwicom/orbit-components";
-import Search from "@kiwicom/orbit-components/lib/icons/Search";
+import { Loading } from "@kiwicom/orbit-components";
 import { SET_COUNTRIES, useWizardDispatch } from "../context/WizardContext";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
 import WizardContainer from "./components/WizardContainer";
 import WizardList from "./components/WizardList";
+import WizardSearchInput from "./components/WizardSearchInput";
 
 export const GET_COUNTRIES = gql`
     {
@@ -44,12 +44,11 @@ const CountriesPicker = () => {
 
     return (
         <WizardContainer>
-            <InputField
-                placeholder={"Search for country"}
+            <WizardSearchInput
+                onChange={setSearchTerm}
                 value={searchTerm}
-                onChange={(event: any) => setSearchTerm(event.target.value)}
-                prefix={<Search />}
                 disabled={loading}
+                placeholder={"Search for country"}
             />
             {loading ? (
                 <Loading />

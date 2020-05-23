@@ -9,6 +9,7 @@ import WizardContinueButton from "./components/WizardContinueButton";
 import WizardContainer from "./components/WizardContainer";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
+import WizardSearchInput from "./components/WizardSearchInput";
 
 const GET_LEAGUES = gql`
     query Leagues($countries: [String]!) {
@@ -43,11 +44,11 @@ const LeaguesPicker = () => {
 
     return (
         <WizardContainer>
-            <InputField
+            <WizardSearchInput
+                onChange={setSearchTerm}
                 value={searchTerm}
-                placeholder={"Search for league"}
-                onChange={(event: any) => setSearchTerm(event.target.value)}
                 disabled={loading}
+                placeholder={"Search for league"}
             />
             {loading ? (
                 <Loading />
