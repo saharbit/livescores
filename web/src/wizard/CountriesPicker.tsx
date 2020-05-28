@@ -6,7 +6,7 @@ import { Loading } from "@kiwicom/orbit-components";
 import { SET_COUNTRIES, useWizardDispatch } from "../context/WizardContext";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
-import WizardContainer from "./components/WizardContainer";
+import Container from "../common/Container";
 import WizardList from "./components/WizardList";
 import WizardSearchInput from "./components/WizardSearchInput";
 
@@ -26,7 +26,9 @@ const CountriesPicker = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
 
     function removeCountry(country: Country) {
-        setSelectedCountries(selectedCountries.filter((x) => x.name !== country.name));
+        setSelectedCountries(
+            selectedCountries.filter((x) => x.name !== country.name)
+        );
     }
 
     function selectCountry(country: Country) {
@@ -47,7 +49,7 @@ const CountriesPicker = () => {
     }
 
     return (
-        <WizardContainer>
+        <Container>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -60,7 +62,9 @@ const CountriesPicker = () => {
                 <WizardList>
                     {data.countries
                         .filter(isCountryIncludedInSearch)
-                        .sort((country: Country) => (isCountrySelected(country) ? -1 : 1))
+                        .sort((country: Country) =>
+                            isCountrySelected(country) ? -1 : 1
+                        )
                         .map((country: Country, index: number) => {
                             const isSelected = isCountrySelected(country);
 
@@ -70,7 +74,11 @@ const CountriesPicker = () => {
                                     name={country.name}
                                     image={country.flag}
                                     isSelected={isSelected}
-                                    onClick={() => (isSelected ? removeCountry(country) : selectCountry(country))}
+                                    onClick={() =>
+                                        isSelected
+                                            ? removeCountry(country)
+                                            : selectCountry(country)
+                                    }
                                 />
                             );
                         })}
@@ -79,11 +87,14 @@ const CountriesPicker = () => {
             <WizardContinueButton
                 link="/leagues"
                 onClick={() => {
-                    dispatch({ type: SET_COUNTRIES, payload: selectedCountries });
+                    dispatch({
+                        type: SET_COUNTRIES,
+                        payload: selectedCountries,
+                    });
                 }}
                 disabled={selectedCountries.length === 0}
             />
-        </WizardContainer>
+        </Container>
     );
 };
 

@@ -12,12 +12,26 @@ type Props = {
     className?: string;
 };
 
-const WizardListItem: React.FC<Props> = ({ name, image, onClick, isSelected, className }) => {
+const WizardListItem: React.FC<Props> = ({
+    name,
+    image,
+    onClick,
+    isSelected,
+    className,
+}) => {
     return (
         <motion.div whileTap={{ scale: 0.9 }}>
-            <Container onClick={onClick} isSelected={isSelected} className={className}>
+            <Container
+                onClick={onClick}
+                isSelected={isSelected}
+                className={className}
+            >
                 <Select isSelected={isSelected}>
-                    <StarEmpty size="small" customColor={isSelected ? "#000" : "#ffdb6e"} className="h-1 w-1" />
+                    <StarEmpty
+                        size="small"
+                        customColor={isSelected ? "#000" : "#ffdb6e"}
+                        className="h-1 w-1"
+                    />
                 </Select>
 
                 {image && <Logo src={image} alt={name} />}

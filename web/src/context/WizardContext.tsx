@@ -46,7 +46,9 @@ function wizardReducer(state: State, action: Action) {
 }
 
 const WizardStateContext = React.createContext<State | undefined>(undefined);
-const WizardDispatchContext = React.createContext<Dispatch | undefined>(undefined);
+const WizardDispatchContext = React.createContext<Dispatch | undefined>(
+    undefined
+);
 
 function useWizardState() {
     const context = React.useContext(WizardStateContext);
@@ -59,7 +61,9 @@ function useWizardState() {
 function useWizardDispatch() {
     const context = React.useContext(WizardDispatchContext);
     if (context === undefined) {
-        throw new Error("useWizardDispatch must be used within a WizardProvider");
+        throw new Error(
+            "useWizardDispatch must be used within a WizardProvider"
+        );
     }
     return context;
 }
@@ -69,7 +73,9 @@ function WizardProvider({ children }: ProviderProps) {
 
     return (
         <WizardStateContext.Provider value={state}>
-            <WizardDispatchContext.Provider value={dispatch}>{children}</WizardDispatchContext.Provider>
+            <WizardDispatchContext.Provider value={dispatch}>
+                {children}
+            </WizardDispatchContext.Provider>
         </WizardStateContext.Provider>
     );
 }

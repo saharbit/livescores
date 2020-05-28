@@ -9,7 +9,12 @@ type Props = {
     disabled?: boolean;
 };
 
-const WizardSearchInput: React.FC<Props> = ({ placeholder, value, onChange, disabled }) => {
+const WizardSearchInput: React.FC<Props> = ({
+    placeholder,
+    value,
+    onChange,
+    disabled,
+}) => {
     return (
         <div className="px-2 lg:px-0">
             <InputField

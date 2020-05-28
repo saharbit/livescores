@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { SET_TEAMS, useWizardDispatch, useWizardState } from "../context/WizardContext";
+import {
+    SET_TEAMS,
+    useWizardDispatch,
+    useWizardState,
+} from "../context/WizardContext";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
-import WizardContainer from "./components/WizardContainer";
+import Container from "../common/Container";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
@@ -46,7 +50,7 @@ const TeamsPicker = () => {
     }
 
     return (
-        <WizardContainer>
+        <Container>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -68,7 +72,11 @@ const TeamsPicker = () => {
                                     key={team.id}
                                     name={team.name}
                                     image={team.logo}
-                                    onClick={() => (isSelected ? removeTeam(team) : selectTeam(team))}
+                                    onClick={() =>
+                                        isSelected
+                                            ? removeTeam(team)
+                                            : selectTeam(team)
+                                    }
                                     isSelected={isSelected}
                                 />
                             );
@@ -82,7 +90,7 @@ const TeamsPicker = () => {
                 }}
                 disabled={selectedTeams.length === 0}
             />
-        </WizardContainer>
+        </Container>
     );
 };
 

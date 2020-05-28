@@ -4,6 +4,8 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import { Fixture } from "../../../shared/types";
+import FixtureItem from "./FixtureItem";
+import Container from "../common/Container";
 
 export const GET_FIXTURES = gql`
     query fixturesList($teamIds: [Int]!) {
@@ -11,40 +13,38 @@ export const GET_FIXTURES = gql`
             id
             homeTeam {
                 name
+                logo
             }
             awayTeam {
                 name
+                logo
             }
             venue
+            date
         }
     }
 `;
 
 const Home = () => {
     const { teams } = useWizardState();
-    const { loading, error, data } = useQuery(GET_FIXTURES, { variables: { teamIds: [157, 165] } });
+    const { loading, error, data } = useQuery(GET_FIXTURES, {
+        variables: { teamIds: teams!.map((team) => team.id) },
+    });
 
     if (error) {
         return <div>error :(</div>;
     }
 
     return (
-        <div>
+        <Container>
             {loading ? (
                 <Loading />
             ) : (
-                <div>
-                    {data.upcomingFixturesByTeamIds.map((fixture: Fixture) => (
-                        <>
-                            <div>{fixture.id}</div>
-                            <div>{fixture.homeTeam.name}</div>
-                            <div>{fixture.awayTeam.name}</div>
-                            <div>{fixture.venue}</div>
-                        </>
-                    ))}
-                </div>
+                data.upcomingFixturesByTeamIds.map((fixture: Fixture) => (
+                    <FixtureItem key={fixture.id} fixture={fixture} />
+                ))
             )}
-        </div>
+        </Container>
     );
 };
 
