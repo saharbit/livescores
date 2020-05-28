@@ -4,29 +4,26 @@ app: livescores
 org: saharbit
 
 provider:
-  name: aws
-  runtime: nodejs12.x
+    name: aws
+    runtime: nodejs12.x
 
 plugins:
-  - serverless-offline
-  - serverless-webpack
-  - serverless-dotenv-plugin
+    - serverless-offline
+    - serverless-webpack
+    - serverless-dotenv-plugin
 
 custom:
-  webpack:
-    webpackConfig: "webpack.config.js"
-    includeModules: true
-    packager: "yarn"
-    excludeFiles: src/**/*.test.js
+    webpack:
+        webpackConfig: "webpack.config.js"
+        includeModules: true
+        packager: "yarn"
+        excludeFiles: src/**/*.test.js
 
 functions:
-  graphql:
-    handler: handler.graphqlHandler
-    events:
-      - http:
-          path: graphql
-          method: post
-          cors: true
-      - http:
-          path: graphql
-          method: get
+    graphql:
+        handler: handler.graphqlHandler
+        events:
+            - http:
+                  path: graphql
+                  method: post
+                  cors: true
