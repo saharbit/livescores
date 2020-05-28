@@ -3,23 +3,23 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@apollo/react-hooks": "^3.1.3",
-        "@apollo/react-testing": "^3.1.3",
-        "@kiwicom/orbit-components": "^0.85.0",
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.3.2",
-        "@testing-library/user-event": "^7.1.2",
-        "apollo-boost": "^0.4.7",
+        "@apollo/react-hooks": "^3.1.5",
+        "@apollo/react-testing": "^3.1.4",
+        "@kiwicom/orbit-components": "^0.85.2",
+        "@testing-library/jest-dom": "^5.9.0",
+        "@testing-library/react": "^10.0.4",
+        "@testing-library/user-event": "^10.4.0",
+        "apollo-boost": "^0.4.9",
         "framer-motion": "^1.11.0",
-        "graphql": "^14.6.0",
-        "node-sass": "^4.14.0",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
+        "graphql": "^15.0.0",
+        "node-sass": "^4.14.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
         "react-router": "^6.0.0-alpha.5",
         "react-router-dom": "^6.0.0-alpha.5",
-        "react-scripts": "3.3.1",
-        "styled-components": "^5.0.1",
-        "typescript": "^3.8.2"
+        "react-scripts": "3.4.1",
+        "styled-components": "^5.1.1",
+        "typescript": "^3.9.3"
     },
     "scripts": {
         "start": "PORT=3001 react-scripts start",
@@ -43,11 +43,11 @@
         ]
     },
     "devDependencies": {
-        "@types/jest": "^25.1.3",
-        "@types/node": "^12.0.0",
-        "@types/react": "^16.9.0",
-        "@types/react-dom": "^16.9.0",
-        "@types/styled-components": "^4.4.3",
+        "@types/jest": "^25.2.3",
+        "@types/node": "^14.0.5",
+        "@types/react": "^16.9.35",
+        "@types/react-dom": "^16.9.8",
+        "@types/styled-components": "^5.1.0",
         "prettier": "^2.0.5"
     }
 }

@@ -42,6 +42,10 @@ const CountriesPicker = () => {
         return !!selectedCountries.find((x) => x.name === country.name);
     }
 
+    if (error) {
+        return <div>Error :(</div>;
+    }
+
     return (
         <WizardContainer>
             <WizardSearchInput
