@@ -48,7 +48,7 @@ const LeaguesPicker = () => {
     }
 
     return (
-        <Container>
+        <>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -81,13 +81,13 @@ const LeaguesPicker = () => {
                 </WizardList>
             )}
             <WizardContinueButton
-                link="/teams"
+                link="../teams"
                 onClick={() => {
                     dispatch({ type: SET_LEAGUES, payload: selectedLeagues });
                 }}
                 disabled={selectedLeagues.length === 0}
             />
-        </Container>
+        </>
     );
 };
 

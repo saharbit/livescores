@@ -1,17 +1,20 @@
 import React from "react";
-import CountriesPicker from "./wizard/CountriesPicker";
-import LeaguesPicker from "./wizard/LeaguesPicker";
-import TeamsPicker from "./wizard/TeamsPicker";
 import Home from "./home/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useWizardState } from "./context/WizardContext";
+import Wizard from "./wizard/Wizard";
 
 const App = () => {
+    const { teams } = useWizardState();
+
     return (
         <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/" element={<CountriesPicker />} />
-            <Route path="/leagues" element={<LeaguesPicker />} />
-            <Route path="/teams" element={<TeamsPicker />} />
+            <Route
+                path="/"
+                element={teams ? <Home /> : <Navigate to="/wizard/countries" />}
+            />
+
+            <Route path="wizard/*" element={<Wizard />} />
         </Routes>
     );
 };

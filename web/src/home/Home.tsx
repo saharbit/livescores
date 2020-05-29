@@ -4,7 +4,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import { Fixture } from "../../../shared/types";
-import FixtureItem from "./FixtureItem";
+import FixturesListItem from "./FixturesListItem";
 import Container from "../common/Container";
 
 export const GET_FIXTURES = gql`
@@ -41,7 +41,7 @@ const Home = () => {
                 <Loading />
             ) : (
                 data.upcomingFixturesByTeamIds.map((fixture: Fixture) => (
-                    <FixtureItem key={fixture.id} fixture={fixture} />
+                    <FixturesListItem key={fixture.id} fixture={fixture} />
                 ))
             )}
         </Container>

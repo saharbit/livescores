@@ -7,7 +7,7 @@ type Props = {
     fixture: Fixture;
 };
 
-const FixtureItem: React.FC<Props> = ({ fixture }) => {
+const FixturesListItem: React.FC<Props> = ({ fixture }) => {
     return (
         <Container className="flex flex-row justify-between items-center">
             <div className="flex flex-row flex-1">
@@ -39,4 +39,4 @@ const Logo = styled.img`
     height: 30px;
     margin: 5px;
 `;
-export default FixtureItem;
+export default FixturesListItem;

@@ -9,7 +9,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
 import WizardContinueButton from "./components/WizardContinueButton";
-import Container from "../common/Container";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
@@ -50,7 +49,7 @@ const TeamsPicker = () => {
     }
 
     return (
-        <Container>
+        <>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -84,13 +83,13 @@ const TeamsPicker = () => {
                 </WizardList>
             )}
             <WizardContinueButton
-                link="/home"
+                link="/"
                 onClick={() => {
                     dispatch({ type: SET_TEAMS, payload: selectedTeams });
                 }}
                 disabled={selectedTeams.length === 0}
             />
-        </Container>
+        </>
     );
 };
 
