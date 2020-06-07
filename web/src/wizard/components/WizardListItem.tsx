@@ -50,9 +50,9 @@ const Logo = styled.img`
 const Select = styled.div<{ isSelected?: boolean }>`
     border: 1px solid #ffdb6e;
     background-color: white;
-    height: 20px;
-    width: 20px;
-    border-radius: 9px;
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
     position: absolute;
     right: 5px;
     top: 5px;
@@ -77,9 +77,8 @@ const Container = styled.div<{ isSelected?: boolean }>`
     position: relative;
 
     background-color: white;
-    min-height: 120px;
+    min-height: 130px;
     border: 2px solid white;
-    border-radius: 10px;
     ${({ isSelected }) => isSelected && "border: 2px solid #ffdb6e;"};
 
     @media (min-width: 768px) {

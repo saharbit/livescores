@@ -9,31 +9,36 @@ type Props = {
 
 const FixturesListItem: React.FC<Props> = ({ fixture }) => {
     return (
-        <Container className="flex flex-row justify-between items-center">
-            <div className="flex flex-row flex-1">
-                {dayjs(fixture.date).format("DD/MM/YYYY")}
+        <Container className="flex flex-col">
+            <div className="flex flex-row justify-between">
+                <div className="flex flex-row">{fixture.venue}</div>
+                <div className="flex flex-row">
+                    {dayjs(fixture.date).format("HH:mm")}
+                </div>
             </div>
 
-            <div className="flex flex-row flex-1 items-center">
+            <div className="flex flex-row items-center">
                 {fixture.homeTeam.logo && (
                     <Logo src={fixture.homeTeam.logo} alt="Home Team Logo" />
                 )}
                 <div>{fixture.homeTeam.name}</div>
             </div>
-
-            <div className="flex flex-row flex-1 items-center">
+            <div className="flex flex-row items-center">
                 {fixture.awayTeam.logo && (
-                    <Logo src={fixture.awayTeam.logo} alt="Home Team Logo" />
+                    <Logo src={fixture.awayTeam.logo} alt="Away Team Logo" />
                 )}
                 <div>{fixture.awayTeam.name}</div>
             </div>
-
-            <div className="flex flex-row flex-1">{fixture.venue}</div>
         </Container>
     );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+    background-color: white;
+    border: 1px solid lightgrey;
+    padding: 10px;
+    max-width: 400px;
+`;
 
 const Logo = styled.img`
     height: 30px;
