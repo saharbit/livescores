@@ -8,8 +8,7 @@ import {
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../shared/types";
-import WizardContinueButton from "./components/WizardContinueButton";
-import Container from "../common/Container";
+import BottomFixedButton from "../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
@@ -47,6 +46,10 @@ const LeaguesPicker = () => {
         return !!selectedLeagues.find((x) => x.id === league.id);
     }
 
+    if (error) {
+        return <div>error :(</div>;
+    }
+
     return (
         <>
             <WizardSearchInput
@@ -80,8 +83,9 @@ const LeaguesPicker = () => {
                     )}
                 </WizardList>
             )}
-            <WizardContinueButton
+            <BottomFixedButton
                 link="../teams"
+                text="Select teams"
                 onClick={() => {
                     dispatch({ type: SET_LEAGUES, payload: selectedLeagues });
                 }}

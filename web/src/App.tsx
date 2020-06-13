@@ -13,7 +13,6 @@ const App = () => {
                 path="/"
                 element={teams ? <Home /> : <Navigate to="/wizard/countries" />}
             />
-
             <Route path="wizard/*" element={<Wizard />} />
         </Routes>
     );

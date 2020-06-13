@@ -8,7 +8,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
-import WizardContinueButton from "./components/WizardContinueButton";
+import BottomFixedButton from "../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
@@ -48,6 +48,10 @@ const TeamsPicker = () => {
         return !!selectedTeams.find((x) => x.name === team.name);
     }
 
+    if (error) {
+        return <div>error :(</div>;
+    }
+
     return (
         <>
             <WizardSearchInput
@@ -82,8 +86,9 @@ const TeamsPicker = () => {
                         })}
                 </WizardList>
             )}
-            <WizardContinueButton
+            <BottomFixedButton
                 link="/"
+                text="DONE"
                 onClick={() => {
                     dispatch({ type: SET_TEAMS, payload: selectedTeams });
                 }}

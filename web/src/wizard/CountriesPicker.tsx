@@ -5,7 +5,7 @@ import { Country } from "../../../shared/types";
 import { Loading } from "@kiwicom/orbit-components";
 import { SET_COUNTRIES, useWizardDispatch } from "../context/WizardContext";
 import WizardListItem from "./components/WizardListItem";
-import WizardContinueButton from "./components/WizardContinueButton";
+import BottomFixedButton from "../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import WizardSearchInput from "./components/WizardSearchInput";
 
@@ -83,8 +83,9 @@ const CountriesPicker = () => {
                         })}
                 </WizardList>
             )}
-            <WizardContinueButton
+            <BottomFixedButton
                 link="../leagues"
+                text="Select leagues"
                 onClick={() => {
                     dispatch({
                         type: SET_COUNTRIES,
