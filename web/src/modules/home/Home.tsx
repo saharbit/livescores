@@ -8,7 +8,6 @@ import Container from "../../common/Container";
 import _ from "lodash";
 import dayjs from "dayjs";
 import BottomFixedButton from "../../common/BottomFixedButton";
-import * as firebase from "firebase";
 import {
     SET_USER,
     useUserDispatch,
@@ -16,6 +15,7 @@ import {
 } from "../../context/UserContext";
 import FixturesList from "./components/FixturesList";
 import { useNavigate } from "react-router-dom";
+import { firebase } from "../../services/Firebase";
 
 const GET_FIXTURES = gql`
     query fixturesList($teamIds: [Int]!) {

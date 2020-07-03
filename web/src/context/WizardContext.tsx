@@ -1,5 +1,5 @@
 import React from "react";
-import { Country, League, Team } from "../../../shared/types";
+import { Country, League } from "../../../shared/types";
 
 interface State {
     countries?: Country[];

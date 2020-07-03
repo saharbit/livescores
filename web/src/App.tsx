@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import Home from "./modules/home/Home";
 import { Routes, Route } from "react-router-dom";
 import Wizard from "./modules/wizard/Wizard";
-import * as firebase from "firebase";
 import { SET_USER, useUserDispatch } from "./context/UserContext";
-import { db } from "./services/Firebase";
+import { db, firebase } from "./services/Firebase";
 import { useWizardDispatch, SET_TEAMS } from "./context/WizardContext";
 
 const App = () => {
@@ -46,7 +45,7 @@ const App = () => {
                     });
             }
         });
-    }, []);
+    }, [userDispatch, wizardDispatch]);
 
     if (isLoading) {
         return null;
