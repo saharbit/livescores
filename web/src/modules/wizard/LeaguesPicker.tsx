@@ -4,11 +4,11 @@ import {
     SET_LEAGUES,
     useWizardDispatch,
     useWizardState,
-} from "../context/WizardContext";
+} from "../../context/WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
-import { League } from "../../../shared/types";
-import BottomFixedButton from "../common/BottomFixedButton";
+import { League } from "../../../../shared/types";
+import BottomFixedButton from "../../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";

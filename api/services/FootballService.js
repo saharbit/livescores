@@ -59,11 +59,36 @@ class FootballService {
     }
 
     async getUpcomingFixturesByTeamIds(teamIds) {
-        let fixtures = [];
+        const fixtures = [];
+        const fixtureIds = {};
 
         for (let id of teamIds) {
             const response = await this._axiosInstance.get(`fixtures/team/${id}/next/10`);
-            fixtures = [...fixtures, ...response.data.api.fixtures];
+
+            for (let fixture of response.data.api.fixtures) {
+                if (!fixtureIds[fixture.fixture_id]) {
+                    fixtureIds[fixture.fixture_id] = true;
+                    fixtures.push(fixture);
+                }
+            }
+        }
+
+        return fixtures;
+    }
+
+    async getUpcomingFixturesFromTopLeagues() {
+        const topFiveLeagues = [2, 4, 6, 8, 30];
+        const fixtures = [];
+        const fixtureIds = {};
+
+        for (let id of topFiveLeagues) {
+            const response = await this._axiosInstance.get(`fixtures/league/${id}`);
+            for (let fixture of response.data.api.fixtures) {
+                if (!fixtureIds[fixture.fixture_id]) {
+                    fixtureIds[fixture.fixture_id] = true;
+                    fixtures.push(fixture);
+                }
+            }
         }
 
         return fixtures;

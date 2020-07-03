@@ -1,9 +1,9 @@
 import React from "react";
-import Container from "../common/Container";
+import Container from "../../common/Container";
 import { Navigate, Route, Routes } from "react-router-dom";
 import LeaguesPicker from "./LeaguesPicker";
 import TeamsPicker from "./TeamsPicker";
-import { useWizardState } from "../context/WizardContext";
+import { useWizardState } from "../../context/WizardContext";
 import CountriesPicker from "./CountriesPicker";
 
 const Wizard = () => {
@@ -33,6 +33,7 @@ const Wizard = () => {
                         )
                     }
                 />
+                <Navigate to="countries" />
             </Routes>
         </Container>
     );

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { Country } from "../../../shared/types";
+import { Country } from "../../../../shared/types";
 import { Loading } from "@kiwicom/orbit-components";
-import { SET_COUNTRIES, useWizardDispatch } from "../context/WizardContext";
+import { SET_COUNTRIES, useWizardDispatch } from "../../context/WizardContext";
 import WizardListItem from "./components/WizardListItem";
-import BottomFixedButton from "../common/BottomFixedButton";
+import BottomFixedButton from "../../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import WizardSearchInput from "./components/WizardSearchInput";
 

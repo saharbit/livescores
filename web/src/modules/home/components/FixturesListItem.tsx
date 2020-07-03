@@ -1,7 +1,8 @@
 import React from "react";
-import { Fixture } from "../../../../shared/types";
+import { Fixture } from "../../../../../shared/types";
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { useWizardState } from "../../../context/WizardContext";
 
 type Props = {
     fixture: Fixture;
@@ -11,14 +12,15 @@ type TeamRowProps = {
     name: string;
     logo?: string | null;
     score: number;
+    isFavorite: boolean;
 };
 
-const TeamRow: React.FC<TeamRowProps> = ({ name, logo, score }) => {
+const TeamRow: React.FC<TeamRowProps> = ({ name, logo, score, isFavorite }) => {
     return (
         <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row items-center">
                 {logo && <Logo src={logo} alt="Team Logo" />}
-                <TeamName>{name}</TeamName>
+                <TeamName isFavorite={isFavorite}>{name}</TeamName>
             </div>
             <Score>{score}</Score>
         </div>
@@ -26,6 +28,8 @@ const TeamRow: React.FC<TeamRowProps> = ({ name, logo, score }) => {
 };
 
 const FixturesListItem: React.FC<Props> = ({ fixture }) => {
+    const { teams } = useWizardState();
+
     return (
         <Container className="flex flex-col">
             <div className="flex flex-row justify-between items-center mb-2">
@@ -39,11 +43,13 @@ const FixturesListItem: React.FC<Props> = ({ fixture }) => {
                 name={fixture.homeTeam.name}
                 logo={fixture.homeTeam.logo}
                 score={0}
+                isFavorite={!!teams?.find((id) => id === fixture.homeTeam.id)}
             />
             <TeamRow
                 name={fixture.awayTeam.name}
                 logo={fixture.awayTeam.logo}
                 score={0}
+                isFavorite={!!teams?.find((id) => id === fixture.awayTeam.id)}
             />
         </Container>
     );
@@ -72,11 +78,16 @@ const Venue = styled.div`
     color: #9a9e9d;
     font-weight: bold;
     font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `;
 
-const TeamName = styled.div`
+const TeamName = styled.div<{ isFavorite: boolean }>`
     color: #9a9e9d;
     font-weight: 500;
+
+    ${(props) => props.isFavorite && `font-weight: 700;`}
 `;
 
 const Score = styled.div`

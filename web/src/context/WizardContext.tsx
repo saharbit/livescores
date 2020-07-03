@@ -4,7 +4,7 @@ import { Country, League, Team } from "../../../shared/types";
 interface State {
     countries?: Country[];
     leagues?: League[];
-    teams?: Team[];
+    teams?: number[];
 }
 
 export const SET_COUNTRIES = "SET_COUNTRIES";
@@ -14,7 +14,7 @@ export const SET_TEAMS = "SET_TEAMS";
 type Action =
     | { type: typeof SET_COUNTRIES; payload: Country[] }
     | { type: typeof SET_LEAGUES; payload: League[] }
-    | { type: typeof SET_TEAMS; payload: Team[] };
+    | { type: typeof SET_TEAMS; payload: number[] };
 
 type Dispatch = (action: Action) => void;
 

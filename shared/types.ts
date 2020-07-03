@@ -14,6 +14,7 @@ export type Query = {
   leaguesByCountryNames?: Maybe<Array<Maybe<League>>>;
   teamsByLeagueIds?: Maybe<Array<Maybe<Team>>>;
   upcomingFixturesByTeamIds?: Maybe<Array<Maybe<Fixture>>>;
+  upcomingFixturesFromTopLeagues?: Maybe<Array<Maybe<Fixture>>>;
 };
 
 
@@ -55,7 +56,8 @@ export type Fixture = {
   __typename?: 'Fixture';
   id: Scalars['Int'];
   date: Scalars['String'];
-  venue: Scalars['String'];
+  venue?: Maybe<Scalars['String']>;
   homeTeam: Team;
   awayTeam: Team;
+  league: League;
 };

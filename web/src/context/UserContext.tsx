@@ -1,7 +1,9 @@
 import React from "react";
 
 type User = {
-    name: string;
+    uid: string | null;
+    displayName: string | null;
+    email: string | null;
 };
 
 interface State {

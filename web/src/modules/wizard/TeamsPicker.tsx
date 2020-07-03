@@ -3,15 +3,17 @@ import {
     SET_TEAMS,
     useWizardDispatch,
     useWizardState,
-} from "../context/WizardContext";
+} from "../../context/WizardContext";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import { Team } from "../../../shared/types";
+import { Team } from "../../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
-import BottomFixedButton from "../common/BottomFixedButton";
+import BottomFixedButton from "../../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
+import { db } from "../../services/Firebase";
+import { useUserState } from "../../context/UserContext";
 
 const GET_TEAMS = gql`
     query Teams($leagues: [Int]!) {
@@ -25,6 +27,7 @@ const GET_TEAMS = gql`
 
 const TeamsPicker = () => {
     const { leagues } = useWizardState();
+    const { user } = useUserState();
     const dispatch = useWizardDispatch();
     const [selectedTeams, setSelectedTeams] = useState<Team[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -90,7 +93,19 @@ const TeamsPicker = () => {
                 link="/"
                 text="DONE"
                 onClick={() => {
-                    dispatch({ type: SET_TEAMS, payload: selectedTeams });
+                    const teamIds = selectedTeams.map((team) => team.id);
+
+                    dispatch({
+                        type: SET_TEAMS,
+                        payload: teamIds,
+                    });
+                    const userDoc = db.collection("users").doc(user!.uid!);
+                    userDoc.set(
+                        {
+                            teams: teamIds,
+                        },
+                        { merge: true }
+                    );
                 }}
                 disabled={selectedTeams.length === 0}
             />
