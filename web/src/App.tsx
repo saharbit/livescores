@@ -49,6 +49,10 @@ const App = () => {
         });
     }, [userDispatch, wizardDispatch]);
 
+    if (isLoading) {
+        return null
+    }
+
     return (
         <Routes>
             <Route path="/" element={<Home />} />
