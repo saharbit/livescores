@@ -3,17 +3,16 @@ import _ from "lodash";
 import FixturesListItem from "./FixturesListItem";
 import styled from "styled-components";
 import { Fixture } from "../../../../../shared/types";
+import { getFixturesByLeague } from "../utils";
 
 type FixturesByDate = { [date: string]: Fixture[] };
 type Props = {
     fixtures: FixturesByDate;
 };
 
-const FixturesList: React.FC<Props> = ({ fixtures }) => {
-    function getFixturesByLeague(fixtures: Fixture[]) {
-        return _.groupBy(fixtures, (fixture) => fixture.league.id);
-    }
 
+
+const FixturesList: React.FC<Props> = ({ fixtures }) => {
     return (
         <Container className="overflow-auto m-2 lg:mx-0 lg:pr-2">
             {_.map(fixtures, (fixtures, date) => {

@@ -7,12 +7,12 @@ type User = {
 };
 
 interface State {
-    user?: User;
+    user?: User | null;
 }
 
 export const SET_USER = "SET_USER";
 
-type Action = { type: typeof SET_USER; payload: User };
+type Action = { type: typeof SET_USER; payload: User | null };
 
 type Dispatch = (action: Action) => void;
 

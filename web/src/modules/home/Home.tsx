@@ -1,12 +1,12 @@
 import React from "react";
-import { useWizardState } from "../../context/WizardContext";
-import { gql } from "apollo-boost";
+import {
+    SET_TEAMS,
+    useWizardDispatch,
+    useWizardState,
+} from "../../context/WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import { Loading } from "@kiwicom/orbit-components/lib";
-import type { Fixture } from "../../../../shared/types";
 import Container from "../../common/Container";
-import _ from "lodash";
-import dayjs from "dayjs";
 import BottomFixedButton from "../../common/BottomFixedButton";
 import {
     SET_USER,
@@ -15,73 +15,38 @@ import {
 } from "../../context/UserContext";
 import FixturesList from "./components/FixturesList";
 import { useNavigate } from "react-router-dom";
-import { firebase } from "../../services/Firebase";
-
-const GET_FIXTURES = gql`
-    query fixturesList($teamIds: [Int]!) {
-        upcomingFixturesByTeamIds(teamIds: $teamIds) {
-            id
-            homeTeam {
-                id
-                name
-                logo
-            }
-            awayTeam {
-                id
-                name
-                logo
-            }
-            venue
-            date
-            league {
-                id
-                name
-                logo
-            }
-        }
-    }
-`;
-
-const GET_DEFAULT_FIXTURES = gql`
-    {
-        upcomingFixturesFromTopLeagues {
-            id
-            homeTeam {
-                id
-                name
-                logo
-            }
-            awayTeam {
-                id
-                name
-                logo
-            }
-            venue
-            date
-            league {
-                id
-                name
-                logo
-            }
-        }
-    }
-`;
-
-function getFixturesByDate(fixtures: Fixture[]) {
-    return _.groupBy(fixtures, (fixture: Fixture) =>
-        dayjs(fixture.date).format("DD/MM/YYYY")
-    );
-}
+import { db, firebase } from "../../services/Firebase";
+import { GET_DEFAULT_FIXTURES, GET_FIXTURES } from "./queries";
+import { getFixturesByDate } from "./utils";
 
 const Home = () => {
     const { teams } = useWizardState();
     const { user } = useUserState();
-    const dispatch = useUserDispatch();
+    const userDispatch = useUserDispatch();
+    const wizardDispatch = useWizardDispatch();
     const { loading, error, data } = useQuery(
-        !!user ? GET_FIXTURES : GET_DEFAULT_FIXTURES,
+        user && teams?.length ? GET_FIXTURES : GET_DEFAULT_FIXTURES,
         { ...(!!user ? { variables: { teamIds: teams } } : {}) }
     );
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+
+    if (error) {
+        return <div>Error :(</div>;
+    }
+
+    const fixtures = user
+        ? data?.upcomingFixturesByTeamIds
+        : data?.upcomingFixturesFromTopLeagues;
+
+    const onSignOut = () => {
+        firebase
+            .auth()
+            .signOut()
+            .then(() => {
+                userDispatch({ type: SET_USER, payload: null });
+                wizardDispatch({ type: SET_TEAMS, payload: [] });
+            });
+    };
 
     const onSignUp = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
@@ -91,8 +56,7 @@ const Home = () => {
             .signInWithPopup(provider)
             .then((result) => {
                 const { displayName, email, uid } = result.user!;
-
-                dispatch({
+                userDispatch({
                     type: SET_USER,
                     payload: {
                         uid,
@@ -100,21 +64,28 @@ const Home = () => {
                         email,
                     },
                 });
-
-                navigate("/wizard");
+                const userDoc = db.collection("users").doc(uid);
+                userDoc
+                    .get()
+                    .then(function (doc) {
+                        if (doc.exists) {
+                            wizardDispatch({
+                                type: SET_TEAMS,
+                                payload: doc.data()?.teams,
+                            });
+                        } else {
+                            console.log("No such document!");
+                            navigate("/wizard");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log("Error getting document:", error);
+                    });
             })
             .catch((error) => {
                 console.log(error);
             });
     };
-
-    if (error) {
-        return <div>error :(</div>;
-    }
-
-    const fixtures = !!user
-        ? data?.upcomingFixturesByTeamIds
-        : data?.upcomingFixturesFromTopLeagues;
 
     return (
         <Container>
@@ -124,9 +95,11 @@ const Home = () => {
                 <FixturesList fixtures={getFixturesByDate(fixtures)} />
             )}
             <BottomFixedButton
-                onClick={() => (!!user ? true : onSignUp())}
+                onClick={user ? onSignOut : onSignUp}
                 text={
-                    !!user ? `Hey, ${user.displayName}` : "Set up your own feed"
+                    user
+                        ? `Hey, ${user.displayName}. Sign out ->`
+                        : "Set up your own feed! ->"
                 }
             />
         </Container>

@@ -13,43 +13,41 @@ const App = () => {
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                const { displayName, email, uid } = user;
-                const userDoc = db.collection("users").doc(uid);
-
-                userDoc
-                    .get()
-                    .then(function (doc) {
-                        if (doc.exists) {
-                            wizardDispatch({
-                                type: SET_TEAMS,
-                                payload: doc.data()?.teams,
-                            });
-
-                            userDispatch({
-                                type: SET_USER,
-                                payload: {
-                                    uid,
-                                    displayName,
-                                    email,
-                                },
-                            });
-
-                            setIsLoading(false);
-                        } else {
-                            console.log("No such document!");
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log("Error getting document:", error);
+            try {
+                if (user) {
+                    const { displayName, email, uid } = user;
+                    userDispatch({
+                        type: SET_USER,
+                        payload: {
+                            uid,
+                            displayName,
+                            email,
+                        },
                     });
+                    const userDoc = db.collection("users").doc(uid);
+                    userDoc
+                        .get()
+                        .then(function (doc) {
+                            if (doc.exists) {
+                                wizardDispatch({
+                                    type: SET_TEAMS,
+                                    payload: doc.data()?.teams,
+                                });
+                            } else {
+                                console.log("No such document!");
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log("Error getting document:", error);
+                        });
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                setIsLoading(false);
             }
         });
     }, [userDispatch, wizardDispatch]);
-
-    if (isLoading) {
-        return null;
-    }
 
     return (
         <Routes>

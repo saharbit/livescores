@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen, wait } from "@testing-library/react";
+import { render, wait } from "@testing-library/react";
 import { WizardProvider } from "../../../context/WizardContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import Home from "../Home";
