@@ -74,8 +74,7 @@ const Home = () => {
                                 payload: doc.data()?.teams,
                             });
                         } else {
-                            console.log("No such document!");
-                            navigate("/wizard");
+                            navigate("/wizard/countries");
                         }
                     })
                     .catch(function (error) {
@@ -98,8 +97,8 @@ const Home = () => {
                 onClick={user ? onSignOut : onSignUp}
                 text={
                     user
-                        ? `Hey, ${user.displayName}. Sign out ->`
-                        : "Set up your own feed! ->"
+                        ? `Hey, ${user.displayName}. Press to sign out`
+                        : "Sign up to set up your own feed!"
                 }
             />
         </Container>

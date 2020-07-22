@@ -88,6 +88,10 @@ class FootballService {
                     fixtureIds[fixture.fixture_id] = true;
                     fixtures.push(fixture);
                 }
+
+                if (fixtures.length > 100) {
+                    return fixtures;
+                }
             }
         }
 
