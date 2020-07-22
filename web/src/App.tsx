@@ -52,7 +52,7 @@ const App = () => {
         }
 
         tryToRestoreUserSession();
-    }, [userDispatch, wizardDispatch]);
+    }, [userDispatch, wizardDispatch, navigate]);
 
     if (isLoading) {
         return null;

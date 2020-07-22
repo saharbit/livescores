@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Maybe from "graphql/tsutils/Maybe";
 import StarEmpty from "@kiwicom/orbit-components/lib/icons/StarEmpty";
 import { motion } from "framer-motion";
 
 type Props = {
     name: string;
-    image?: Maybe<string>;
+    image?: null | string;
     onClick: () => void;
     isSelected?: boolean;
     className?: string;
