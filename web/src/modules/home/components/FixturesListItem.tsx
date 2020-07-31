@@ -31,7 +31,7 @@ const FixturesListItem: React.FC<Props> = ({ fixture }) => {
     const { teams } = useWizardState();
 
     return (
-        <Container className="flex flex-col">
+        <Container className="flex flex-col mb-1">
             <div className="flex flex-row justify-between items-center mb-2">
                 <Venue>{fixture.venue}</Venue>
 

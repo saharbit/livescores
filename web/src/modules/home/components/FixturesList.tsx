@@ -4,13 +4,14 @@ import FixturesListItem from "./FixturesListItem";
 import styled from "styled-components";
 import { Fixture } from "../../../../../shared/types";
 import { getFixturesByLeague } from "../utils";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 type FixturesByDate = { [date: string]: Fixture[] };
 type Props = {
     fixtures: FixturesByDate;
 };
-
-
 
 const FixturesList: React.FC<Props> = ({ fixtures }) => {
     return (
@@ -18,7 +19,9 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
             {_.map(fixtures, (fixtures, date) => {
                 return (
                     <Fragment key={date}>
-                        <Date className="font-bold mt-2">{date}</Date>
+                        <Date className="font-bold mt-2">
+                            {dayjs(date).fromNow()}
+                        </Date>
                         {_.map(
                             getFixturesByLeague(fixtures),
                             (fixtures, leagueId) => {
@@ -26,7 +29,7 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
 
                                 return (
                                     <Fragment key={leagueId}>
-                                        <League className="my-2">
+                                        <League className="my-3">
                                             {league.logo && (
                                                 <Logo
                                                     src={league.logo}
@@ -62,7 +65,7 @@ const Logo = styled.img`
 `;
 
 const Date = styled.div`
-    text-align: center;
+    font-size: 20px;
 `;
 
 const League = styled.div`
