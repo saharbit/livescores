@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1009741899248",
+    "firebase_url": "https://livescores-43042.firebaseio.com",
+    "project_id": "livescores-43042",
+    "storage_bucket": "livescores-43042.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009741899248:android:c56ea0663680e3ae6e6935",
+        "android_client_info": {
+          "package_name": "com.saharbit.livescores"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009741899248-898m2fstrg4cjtsnspa7emh41jdhhins.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsnSmOWkN-XWfzzTaKTEuuvnJVaSCRxdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009741899248-898m2fstrg4cjtsnspa7emh41jdhhins.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

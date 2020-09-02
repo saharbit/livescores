@@ -1,118 +1,68 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import React, { useEffect, useState } from "react";
+import { View, Text, Button } from "react-native";
+import auth from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-community/google-signin";
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-declare var global: {HermesInternal: null | {}};
+GoogleSignin.configure({
+    webClientId: "1009741899248-898m2fstrg4cjtsnspa7emh41jdhhins.apps.googleusercontent.com",
+});
 
 const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState<null | { email: string }>();
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+    function onAuthStateChanged(user: any) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+
+        return subscriber; // unsubscribe on unmount
+    }, []);
+
+    async function onGoogleButtonPress() {
+        try {
+            const { idToken } = await GoogleSignin.signIn();
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+            return auth().signInWithCredential(googleCredential);
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    function GoogleSignIn() {
+        return (
+            <Button
+                title="Google Sign-In"
+                onPress={() => onGoogleButtonPress().then(() => console.log("Signed in with Google!"))}
+            />
+        );
+    }
+
+    if (initializing) return null;
+
+    if (!user) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <GoogleSignIn />
+            </View>
+        );
+    }
+
+    function signOut() {
+        return auth()
+            .signOut()
+            .then(() => console.log("User signed out!"));
+    }
+
+    return (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <Text>Welcome {user.email}</Text>
+            <Button title="Sign out" onPress={() => signOut()} />
+        </View>
+    );
+};
 
 export default App;

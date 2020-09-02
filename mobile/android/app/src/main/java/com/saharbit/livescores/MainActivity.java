@@ -1,4 +1,4 @@
-package com.mobile;
+package com.saharbit.livescores;
 
 import com.facebook.react.ReactActivity;
 

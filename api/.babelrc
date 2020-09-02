@@ -1,13 +1,13 @@
 {
-  "presets": [
-    [
-      "@babel/env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ],
-    "jest"
-  ]
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": "current"
+                }
+            }
+        ],
+        "jest"
+    ]
 }

@@ -42,7 +42,7 @@ export const resolvers = {
             const { teamIds } = args;
 
             const fixtures = await footballService.getUpcomingFixturesByTeamIds(teamIds);
-                return fixtures.map(serializeFixture);
+            return fixtures.map(serializeFixture);
         },
         upcomingFixturesFromTopLeagues: async (root, args, { context: { footballService } }) => {
             const fixtures = await footballService.getUpcomingFixturesFromTopLeagues();
