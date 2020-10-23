@@ -12,6 +12,9 @@ class FootballService {
                 "x-rapidapi-host": process.env.RAPIDAPI_HOST,
                 "x-rapidapi-key": process.env.RAPIDAPI_KEY,
             };
+            config.params = {
+                timezone: "Europe/London",
+            };
             return config;
         });
     }
@@ -76,22 +79,15 @@ class FootballService {
         return fixtures;
     }
 
-    async getUpcomingFixturesFromTopLeagues() {
-        const topFiveLeagues = [2, 4, 6, 8, 30];
+    async getUpcomingFixturesFromTopTeams() {
+        const topTeamIds = [33];
         const fixtures = [];
-        const fixtureIds = {};
 
-        for (let id of topFiveLeagues) {
-            const response = await this._axiosInstance.get(`fixtures/league/${id}`);
+        for (let id of topTeamIds) {
+            const response = await this._axiosInstance.get(`fixtures/team/${id}/next/10`);
+
             for (let fixture of response.data.api.fixtures) {
-                if (!fixtureIds[fixture.fixture_id]) {
-                    fixtureIds[fixture.fixture_id] = true;
-                    fixtures.push(fixture);
-                }
-
-                if (fixtures.length > 100) {
-                    return fixtures;
-                }
+                fixtures.push(fixture);
             }
         }
 

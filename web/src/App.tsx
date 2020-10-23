@@ -5,6 +5,7 @@ import Wizard from "./modules/wizard/Wizard";
 import { SET_USER, useUserDispatch } from "./context/UserContext";
 import { db, firebase } from "./services/Firebase";
 import { useWizardDispatch, SET_TEAMS } from "./context/WizardContext";
+import { Loading } from "@kiwicom/orbit-components";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +56,7 @@ const App = () => {
     }, [userDispatch, wizardDispatch, navigate]);
 
     if (isLoading) {
-        return null;
+        return <Loading />;
     }
 
     return (

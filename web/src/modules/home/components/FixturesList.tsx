@@ -19,8 +19,8 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
             {_.map(fixtures, (fixtures, date) => {
                 return (
                     <Fragment key={date}>
-                        <Date className="font-bold mt-2">
-                            {dayjs(date).fromNow()}
+                        <Date className="font-bold mt-2 text-center">
+                            {dayjs(date).format("DD/MM/YYYY")}
                         </Date>
                         {_.map(
                             getFixturesByLeague(fixtures),
@@ -29,7 +29,7 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
 
                                 return (
                                     <Fragment key={leagueId}>
-                                        <League className="my-3">
+                                        <League className="my-3 font-bold">
                                             {league.logo && (
                                                 <Logo
                                                     src={league.logo}

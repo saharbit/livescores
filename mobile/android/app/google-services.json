@@ -28,8 +28,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1009741899248-898m2fstrg4cjtsnspa7emh41jdhhins.apps.googleusercontent.com",
+              "client_id": "1009741899248-d14ehl7tp69ng1at82bh90vnhp3s4bv4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1009741899248-lp7g79p43tontn1ojtagm7ipde9102g5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.saharbit.livescores"
+              }
             }
           ]
         }

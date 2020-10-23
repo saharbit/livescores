@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import StarEmpty from "@kiwicom/orbit-components/lib/icons/StarEmpty";
 import { motion } from "framer-motion";
+import SelectItemButton from "../../../common/SelectItemButton";
 
 type Props = {
     name: string;
@@ -25,13 +25,7 @@ const WizardListItem: React.FC<Props> = ({
                 isSelected={isSelected}
                 className={className}
             >
-                <Select isSelected={isSelected}>
-                    <StarEmpty
-                        size="small"
-                        customColor={isSelected ? "#000" : "#ffdb6e"}
-                        className="h-1 w-1"
-                    />
-                </Select>
+                <SelectItemButton isSelected={isSelected} />
 
                 {image && <Logo src={image} alt={name} />}
 
@@ -44,23 +38,6 @@ const WizardListItem: React.FC<Props> = ({
 const Logo = styled.img`
     height: 30px;
     margin-bottom: 5px;
-`;
-
-const Select = styled.div<{ isSelected?: boolean }>`
-    border: 1px solid #ffdb6e;
-    background-color: white;
-    height: 24px;
-    width: 24px;
-    border-radius: 12px;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    ${({ isSelected }) => isSelected && "background-color: #ffdb6e;"}
 `;
 
 const Name = styled.span`

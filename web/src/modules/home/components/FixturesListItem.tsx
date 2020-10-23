@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Fixture } from "../../../../../shared/types";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import { useWizardState } from "../../../context/WizardContext";
+import SelectItemButton from "../../../common/SelectItemButton";
 
 type Props = {
     fixture: Fixture;
@@ -29,11 +30,33 @@ const TeamRow: React.FC<TeamRowProps> = ({ name, logo, score, isFavorite }) => {
 
 const FixturesListItem: React.FC<Props> = ({ fixture }) => {
     const { teams } = useWizardState();
+    const [selectedFixtures, setSelectedFixtures] = useState<{
+        [key: string]: boolean;
+    }>({});
+    const isSelected = selectedFixtures[fixture.id];
 
     return (
-        <Container className="flex flex-col mb-1">
+        <Container
+            className="flex flex-col mb-2 rounded-md border-2"
+            onClick={() => {
+                const updatedFixtures = { ...selectedFixtures };
+
+                if (isSelected) {
+                    delete updatedFixtures[fixture.id];
+                    setSelectedFixtures(updatedFixtures);
+                } else {
+                    setSelectedFixtures({
+                        ...selectedFixtures,
+                        [fixture.id]: true,
+                    });
+                }
+            }}
+        >
             <div className="flex flex-row justify-between items-center mb-2">
-                <Venue>{fixture.venue}</Venue>
+                <div className="flex flex-row">
+                    <SelectItemButton isSelected={isSelected} />
+                    <Venue>{fixture.venue}</Venue>
+                </div>
 
                 <MatchTime className="flex flex-row">
                     {dayjs(fixture.date).format("HH:mm")}
@@ -58,6 +81,13 @@ const FixturesListItem: React.FC<Props> = ({ fixture }) => {
 const Container = styled.div`
     background-color: white;
     padding: 10px;
+
+    @media (min-width: 768px) {
+        &:hover {
+            cursor: pointer;
+            border: 2px solid #b9b9b9;
+        }
+    }
 `;
 
 const Logo = styled.img`
@@ -81,6 +111,7 @@ const Venue = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 10px;
 `;
 
 const TeamName = styled.div<{ isFavorite: boolean }>`
