@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Country } from "../../../../shared/types";
-import { Loading } from "@kiwicom/orbit-components";
+import { Button, Loading } from "@kiwicom/orbit-components";
 import { SET_COUNTRIES, useWizardDispatch } from "../../context/WizardContext";
 import WizardListItem from "./components/WizardListItem";
-import BottomFixedButton from "../../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import WizardSearchInput from "./components/WizardSearchInput";
+import { useNavigate } from "react-router-dom";
+import ChevronDoubleRight from "@kiwicom/orbit-components/lib/icons/ChevronDoubleRight";
 
 export const GET_COUNTRIES = gql`
     {
@@ -23,6 +24,7 @@ const CountriesPicker = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const dispatch = useWizardDispatch();
     const { loading, error, data } = useQuery(GET_COUNTRIES);
+    const navigate = useNavigate();
 
     function removeCountry(country: Country) {
         setSelectedCountries(
@@ -49,6 +51,22 @@ const CountriesPicker = () => {
 
     return (
         <>
+            <Button
+                disabled={selectedCountries.length === 0}
+                onClick={() => {
+                    dispatch({
+                        type: SET_COUNTRIES,
+                        payload: selectedCountries,
+                    });
+                    navigate("../leagues");
+                }}
+                type="primary"
+                fullWidth
+                spaceAfter="small"
+                iconRight={<ChevronDoubleRight />}
+            >
+                Go to leagues select
+            </Button>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -83,17 +101,6 @@ const CountriesPicker = () => {
                         })}
                 </WizardList>
             )}
-            <BottomFixedButton
-                link="../leagues"
-                text="Select leagues"
-                onClick={() => {
-                    dispatch({
-                        type: SET_COUNTRIES,
-                        payload: selectedCountries,
-                    });
-                }}
-                disabled={selectedCountries.length === 0}
-            />
         </>
     );
 };

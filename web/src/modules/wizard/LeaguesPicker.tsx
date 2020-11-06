@@ -1,17 +1,20 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
 import {
+    SET_COUNTRIES,
     SET_LEAGUES,
     useWizardDispatch,
-    useWizardState,
+    useWizardState
 } from "../../context/WizardContext";
 import { useQuery } from "@apollo/react-hooks";
 import WizardListItem from "./components/WizardListItem";
 import { League } from "../../../../shared/types";
-import BottomFixedButton from "../../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
+import ChevronDoubleRight from "@kiwicom/orbit-components/lib/icons/ChevronDoubleRight";
+import { Button } from "@kiwicom/orbit-components";
+import { useNavigate } from "react-router-dom";
 
 const GET_LEAGUES = gql`
     query Leagues($countries: [String]!) {
@@ -31,6 +34,7 @@ const LeaguesPicker = () => {
     const { loading, error, data } = useQuery(GET_LEAGUES, {
         variables: { countries: countries?.map((country) => country.name) },
     });
+    const navigate = useNavigate();
 
     function removeLeague(league: League) {
         setSelectedLeagues(
@@ -52,6 +56,19 @@ const LeaguesPicker = () => {
 
     return (
         <>
+            <Button
+                disabled={selectedLeagues.length === 0}
+                onClick={() => {
+                    dispatch({ type: SET_LEAGUES, payload: selectedLeagues });
+                    navigate("../teams");
+                }}
+                type="primary"
+                fullWidth
+                spaceAfter="small"
+                iconRight={<ChevronDoubleRight />}
+            >
+                Go to teams select
+            </Button>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -83,14 +100,6 @@ const LeaguesPicker = () => {
                     )}
                 </WizardList>
             )}
-            <BottomFixedButton
-                link="../teams"
-                text="Select teams"
-                onClick={() => {
-                    dispatch({ type: SET_LEAGUES, payload: selectedLeagues });
-                }}
-                disabled={selectedLeagues.length === 0}
-            />
         </>
     );
 };

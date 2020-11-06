@@ -4,6 +4,7 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { useWizardState } from "../../../context/WizardContext";
 import SelectItemButton from "../../../common/SelectItemButton";
+import { motion } from "framer-motion";
 
 type Props = {
     fixture: Fixture;
@@ -36,51 +37,59 @@ const FixturesListItem: React.FC<Props> = ({ fixture }) => {
     const isSelected = selectedFixtures[fixture.id];
 
     return (
-        <Container
-            className="flex flex-col mb-2 rounded-md border-2"
-            onClick={() => {
-                const updatedFixtures = { ...selectedFixtures };
+        <motion.div whileTap={{ scale: 0.95 }}>
+            <Container
+                className="flex flex-col mb-2 rounded-md border-2"
+                onClick={() => {
+                    const updatedFixtures = { ...selectedFixtures };
 
-                if (isSelected) {
-                    delete updatedFixtures[fixture.id];
-                    setSelectedFixtures(updatedFixtures);
-                } else {
-                    setSelectedFixtures({
-                        ...selectedFixtures,
-                        [fixture.id]: true,
-                    });
-                }
-            }}
-        >
-            <div className="flex flex-row justify-between items-center mb-2">
-                <div className="flex flex-row">
-                    <SelectItemButton isSelected={isSelected} />
-                    <Venue>{fixture.venue}</Venue>
+                    if (isSelected) {
+                        delete updatedFixtures[fixture.id];
+                        setSelectedFixtures(updatedFixtures);
+                    } else {
+                        setSelectedFixtures({
+                            ...selectedFixtures,
+                            [fixture.id]: true,
+                        });
+                    }
+                }}
+                isSelected={isSelected}
+            >
+                <div className="flex flex-row justify-between items-center mb-2">
+                    <div className="flex flex-row">
+                        <SelectItemButton isSelected={isSelected} />
+                        <Venue>{fixture.venue}</Venue>
+                    </div>
+
+                    <MatchTime className="flex flex-row">
+                        {dayjs(fixture.date).format("HH:mm")}
+                    </MatchTime>
                 </div>
-
-                <MatchTime className="flex flex-row">
-                    {dayjs(fixture.date).format("HH:mm")}
-                </MatchTime>
-            </div>
-            <TeamRow
-                name={fixture.homeTeam.name}
-                logo={fixture.homeTeam.logo}
-                score={0}
-                isFavorite={!!teams?.find((id) => id === fixture.homeTeam.id)}
-            />
-            <TeamRow
-                name={fixture.awayTeam.name}
-                logo={fixture.awayTeam.logo}
-                score={0}
-                isFavorite={!!teams?.find((id) => id === fixture.awayTeam.id)}
-            />
-        </Container>
+                <TeamRow
+                    name={fixture.homeTeam.name}
+                    logo={fixture.homeTeam.logo}
+                    score={0}
+                    isFavorite={
+                        !!teams?.find((id) => id === fixture.homeTeam.id)
+                    }
+                />
+                <TeamRow
+                    name={fixture.awayTeam.name}
+                    logo={fixture.awayTeam.logo}
+                    score={0}
+                    isFavorite={
+                        !!teams?.find((id) => id === fixture.awayTeam.id)
+                    }
+                />
+            </Container>
+        </motion.div>
     );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ isSelected?: boolean }>`
     background-color: white;
     padding: 10px;
+    ${({ isSelected }) => isSelected && "border: 2px solid #ffdb6e;"};
 
     @media (min-width: 768px) {
         &:hover {
@@ -91,7 +100,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-    height: 25px;
+    width: 25px;
     margin: 5px 10px 5px 0;
 `;
 

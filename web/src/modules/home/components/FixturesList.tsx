@@ -15,12 +15,12 @@ type Props = {
 
 const FixturesList: React.FC<Props> = ({ fixtures }) => {
     return (
-        <Container className="overflow-auto m-2 lg:mx-0 lg:pr-2">
+        <Container className="mx-2 md:mx-0">
             {_.map(fixtures, (fixtures, date) => {
                 return (
                     <Fragment key={date}>
-                        <Date className="font-bold mt-2 text-center">
-                            {dayjs(date).format("DD/MM/YYYY")}
+                        <Date className="font-bold mb-2 mt-6">
+                            {dayjs(date).format("dddd, DD/MM/YYYY")}
                         </Date>
                         {_.map(
                             getFixturesByLeague(fixtures),
@@ -29,7 +29,7 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
 
                                 return (
                                     <Fragment key={leagueId}>
-                                        <League className="my-3 font-bold">
+                                        <League className="my-2 font-bold text-sm">
                                             {league.logo && (
                                                 <Logo
                                                     src={league.logo}
@@ -60,7 +60,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-    height: 30px;
+    width: 24px;
     margin-right: 5px;
 `;
 

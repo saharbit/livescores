@@ -16,15 +16,14 @@ const WizardSearchInput: React.FC<Props> = ({
     disabled,
 }) => {
     return (
-        <div className="px-2 lg:px-0">
-            <InputField
-                placeholder={placeholder}
-                value={value}
-                onChange={(event: any) => onChange(event.target.value)}
-                prefix={<Search />}
-                disabled={disabled}
-            />
-        </div>
+        <InputField
+            placeholder={placeholder}
+            value={value}
+            onChange={(event: any) => onChange(event.target.value)}
+            prefix={<Search />}
+            disabled={disabled}
+            spaceAfter="small"
+        />
     );
 };
 

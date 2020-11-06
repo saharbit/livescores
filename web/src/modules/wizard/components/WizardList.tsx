@@ -7,7 +7,7 @@ const List = styled.div`
 
 const WizardList: React.FC = ({ children }) => {
     return (
-        <List className="grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-8 overflow-auto m-2 lg:mx-0 lg:pr-2">
+        <List className="grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-8">
             {children}
         </List>
     );

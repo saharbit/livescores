@@ -23,7 +23,7 @@ const WizardListItem: React.FC<Props> = ({
             <Container
                 onClick={onClick}
                 isSelected={isSelected}
-                className={className}
+                className={`rounded-lg ${className}`}
             >
                 <SelectItemButton isSelected={isSelected} />
 

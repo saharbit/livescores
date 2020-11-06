@@ -8,12 +8,14 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Team } from "../../../../shared/types";
 import WizardListItem from "./components/WizardListItem";
-import BottomFixedButton from "../../common/BottomFixedButton";
 import WizardList from "./components/WizardList";
 import { Loading } from "@kiwicom/orbit-components/lib";
 import WizardSearchInput from "./components/WizardSearchInput";
 import { db } from "../../services/Firebase";
 import { useUserState } from "../../context/UserContext";
+import ChevronDoubleRight from "@kiwicom/orbit-components/lib/icons/ChevronDoubleRight";
+import { Button } from "@kiwicom/orbit-components";
+import { useNavigate } from "react-router-dom";
 
 const GET_TEAMS = gql`
     query Teams($leagues: [Int]!) {
@@ -34,6 +36,7 @@ const TeamsPicker = () => {
     const { loading, error, data } = useQuery(GET_TEAMS, {
         variables: { leagues: leagues?.map((league) => league.id) },
     });
+    const navigate = useNavigate();
 
     function removeTeam(team: Team) {
         setSelectedTeams(selectedTeams.filter((x) => x.id !== team.id));
@@ -57,6 +60,31 @@ const TeamsPicker = () => {
 
     return (
         <>
+            <Button
+                disabled={selectedTeams.length === 0}
+                onClick={() => {
+                    const teamIds = selectedTeams.map((team) => team.id);
+
+                    dispatch({
+                        type: SET_TEAMS,
+                        payload: teamIds,
+                    });
+                    const userDoc = db.collection("users").doc(user!.uid!);
+                    userDoc.set(
+                        {
+                            teams: teamIds,
+                        },
+                        { merge: true }
+                    );
+                    navigate("/");
+                }}
+                type="primary"
+                fullWidth
+                spaceAfter="small"
+                iconRight={<ChevronDoubleRight />}
+            >
+                Go to your personalized feed
+            </Button>
             <WizardSearchInput
                 onChange={setSearchTerm}
                 value={searchTerm}
@@ -89,26 +117,6 @@ const TeamsPicker = () => {
                         })}
                 </WizardList>
             )}
-            <BottomFixedButton
-                link="/"
-                text="DONE"
-                onClick={() => {
-                    const teamIds = selectedTeams.map((team) => team.id);
-
-                    dispatch({
-                        type: SET_TEAMS,
-                        payload: teamIds,
-                    });
-                    const userDoc = db.collection("users").doc(user!.uid!);
-                    userDoc.set(
-                        {
-                            teams: teamIds,
-                        },
-                        { merge: true }
-                    );
-                }}
-                disabled={selectedTeams.length === 0}
-            />
         </>
     );
 };
