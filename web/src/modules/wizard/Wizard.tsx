@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "../../common/Container";
 import { Navigate, Route, Routes } from "react-router-dom";
 import LeaguesPicker from "./LeaguesPicker";
 import TeamsPicker from "./TeamsPicker";

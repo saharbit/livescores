@@ -1,7 +1,6 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
 import {
-    SET_COUNTRIES,
     SET_LEAGUES,
     useWizardDispatch,
     useWizardState
