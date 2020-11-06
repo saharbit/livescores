@@ -80,7 +80,7 @@ class FootballService {
     }
 
     async getUpcomingFixturesFromTopTeams() {
-        const topTeamIds = [33, 34, 35, 36];
+        const topTeamIds = [33, 34, 35, 36, 37, 38];
         const fixtures = [];
 
         for (let id of topTeamIds) {
