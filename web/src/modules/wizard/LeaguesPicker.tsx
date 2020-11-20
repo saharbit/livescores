@@ -43,10 +43,15 @@ const LeaguesPicker = () => {
 
     function selectLeague(league: League) {
         setSelectedLeagues([...selectedLeagues, league]);
+        setSearchTerm("");
+    }
+
+    function isLeagueIncludedInSearch(league: League) {
+        return league.name.toLowerCase().includes(searchTerm.toLowerCase());
     }
 
     function isLeagueSelected(league: League) {
-        return !!selectedLeagues.find((x) => x.id === league.id);
+        return !!selectedLeagues.find((x) => x.name === league.name);
     }
 
     if (error) {
@@ -78,8 +83,12 @@ const LeaguesPicker = () => {
                 <Loading />
             ) : (
                 <WizardList>
-                    {data.leaguesByCountryNames.map(
-                        (league: League, index: number) => {
+                    {data.leaguesByCountryNames
+                        .filter(isLeagueIncludedInSearch)
+                        .sort((league: League) =>
+                            isLeagueSelected(league) ? -1 : 1
+                        )
+                        .map((league: League, index: number) => {
                             const isSelected = isLeagueSelected(league);
 
                             return (
@@ -95,8 +104,7 @@ const LeaguesPicker = () => {
                                     }
                                 />
                             );
-                        }
-                    )}
+                        })}
                 </WizardList>
             )}
         </>

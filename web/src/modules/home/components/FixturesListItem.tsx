@@ -37,7 +37,7 @@ const FixturesListItem: React.FC<Props> = ({ fixture }) => {
     const isSelected = selectedFixtures[fixture.id];
 
     return (
-        <motion.div whileTap={{ scale: 0.95 }}>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Container
                 className="flex flex-col mb-2 rounded-md border-2"
                 onClick={() => {
@@ -89,14 +89,16 @@ const FixturesListItem: React.FC<Props> = ({ fixture }) => {
 const Container = styled.div<{ isSelected?: boolean }>`
     background-color: white;
     padding: 10px;
-    ${({ isSelected }) => isSelected && "border: 2px solid #ffdb6e;"};
-
     @media (min-width: 768px) {
         &:hover {
             cursor: pointer;
-            border: 2px solid #b9b9b9;
+            ${({ isSelected }) =>
+                isSelected
+                    ? "border: 2px solid #ffdb6e;"
+                    : "border: 2px solid #b9b9b9;"};
         }
     }
+    ${({ isSelected }) => isSelected && "border: 2px solid #ffdb6e;"};
 `;
 
 const Logo = styled.img`

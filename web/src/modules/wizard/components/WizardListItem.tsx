@@ -19,14 +19,12 @@ const WizardListItem: React.FC<Props> = ({
     className,
 }) => {
     return (
-        <motion.div whileTap={{ scale: 0.9 }}>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Container
                 onClick={onClick}
                 isSelected={isSelected}
                 className={`rounded-lg ${className}`}
             >
-                <SelectItemButton isSelected={isSelected} />
-
                 {image && <Logo src={image} alt={name} />}
 
                 <Name>{name}</Name>
@@ -43,6 +41,7 @@ const Logo = styled.img`
 const Name = styled.span`
     font-size: 14px;
     text-align: center;
+    font-weight: 500;
 `;
 
 const Container = styled.div<{ isSelected?: boolean }>`

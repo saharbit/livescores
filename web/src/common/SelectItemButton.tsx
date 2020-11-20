@@ -1,6 +1,7 @@
 import React from "react";
-import StarEmpty from "@kiwicom/orbit-components/lib/icons/StarEmpty";
 import styled from "styled-components";
+import Notification from "@kiwicom/orbit-components/lib/icons/Notification";
+
 
 export default function SelectItemButton({
     isSelected,
@@ -9,9 +10,9 @@ export default function SelectItemButton({
 }) {
     return (
         <Select isSelected={isSelected}>
-            <StarEmpty
+            <Notification
                 size="small"
-                customColor={isSelected ? "#000" : "#ffdb6e"}
+                customColor={isSelected ? "white" : "#ffdb6e"}
                 className="h-1 w-1"
             />
         </Select>

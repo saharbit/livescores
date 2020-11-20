@@ -2,7 +2,7 @@
     "scripts": {
         "test": "jest --passWithNoTests",
         "start": "serverless offline start",
-        "deploy-prod": "serverless deploy",
+        "deploy-prod": "serverless deploy --stage production",
         "generate-types": "graphql-codegen"
     },
     "dependencies": {

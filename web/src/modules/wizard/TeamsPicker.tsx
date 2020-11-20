@@ -44,6 +44,7 @@ const TeamsPicker = () => {
 
     function selectTeam(team: Team) {
         setSelectedTeams([...selectedTeams, team]);
+        setSearchTerm("");
     }
 
     function isTeamIncludedInSearch(team: Team) {
@@ -69,13 +70,15 @@ const TeamsPicker = () => {
                         type: SET_TEAMS,
                         payload: teamIds,
                     });
-                    const userDoc = db.collection("users").doc(user!.uid!);
-                    userDoc.set(
-                        {
-                            teams: teamIds,
-                        },
-                        { merge: true }
-                    );
+                    if (user) {
+                        const userDoc = db.collection("users").doc(user.uid!);
+                        userDoc.set(
+                            {
+                                teams: teamIds,
+                            },
+                            { merge: true }
+                        );
+                    }
                     navigate("/");
                 }}
                 type="primary"

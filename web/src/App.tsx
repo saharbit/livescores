@@ -9,6 +9,7 @@ import { Button, Loading } from "@kiwicom/orbit-components";
 import styled from "styled-components";
 import Logout from "@kiwicom/orbit-components/lib/icons/Logout";
 import Google from "@kiwicom/orbit-components/lib/icons/Google";
+import Calendar from "@kiwicom/orbit-components/lib/icons/Calendar";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -113,9 +114,17 @@ const App = () => {
 
     return (
         <div>
-            <Navbar className="p-2">
-                <div className="container mx-auto flex flex-row items-center justify-between">
-                    <div className="text-white text-lg">Livescores</div>
+            <Navbar className="p-3">
+                <div className="container mx-auto md:max-w-screen-md flex flex-row items-center justify-between">
+                    <div className="mr-2">
+                        <Button
+                            onClick={() => navigate("wizard")}
+                            type="white"
+                            iconLeft={<Calendar />}
+                        >
+                            Set up your own feed
+                        </Button>
+                    </div>
                     <Button
                         onClick={user ? onSignOut : onSignUp}
                         type="white"
@@ -125,7 +134,7 @@ const App = () => {
                     </Button>
                 </div>
             </Navbar>
-            <div className="container mx-auto">
+            <div className="container mx-auto md:max-w-screen-md">
                 <div className=" mt-20 mx-2 lg:mx-0">
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -138,8 +147,7 @@ const App = () => {
 };
 
 const Navbar = styled.div`
-    height: 65px;
-    background: #252f3f;
+    background: black;
     top: 0;
     left: 0;
     z-index: 999;

@@ -7,7 +7,7 @@ type Props = {
 const Container: React.FC<Props> = ({ children, className }) => {
     return (
         <div
-            className={`container mx-auto xl:max-w-screen-lg ${
+            className={`container mx-auto xl:max-w-screen-md ${
                 className ? className : ""
             }`}
         >

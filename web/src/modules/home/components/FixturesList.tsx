@@ -15,7 +15,7 @@ type Props = {
 
 const FixturesList: React.FC<Props> = ({ fixtures }) => {
     return (
-        <Container className="mx-2 md:mx-0">
+        <div className="mx-2 md:mx-0 pb-10">
             {_.map(fixtures, (fixtures, date) => {
                 return (
                     <Fragment key={date}>
@@ -29,7 +29,7 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
 
                                 return (
                                     <Fragment key={leagueId}>
-                                        <League className="my-2 font-bold text-sm">
+                                        <League className="my-3 font-bold text-sm">
                                             {league.logo && (
                                                 <Logo
                                                     src={league.logo}
@@ -51,13 +51,9 @@ const FixturesList: React.FC<Props> = ({ fixtures }) => {
                     </Fragment>
                 );
             })}
-        </Container>
+        </div>
     );
 };
-
-const Container = styled.div`
-    max-height: calc(100vh - 60px);
-`;
 
 const Logo = styled.img`
     width: 24px;
