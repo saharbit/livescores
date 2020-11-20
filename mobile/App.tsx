@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-community/google-signin";
+import { useQuery } from "@apollo/client";
+import { GET_DEFAULT_FIXTURES } from "./queries";
 
 GoogleSignin.configure({
     webClientId: "1009741899248-898m2fstrg4cjtsnspa7emh41jdhhins.apps.googleusercontent.com",
@@ -10,6 +12,7 @@ GoogleSignin.configure({
 const App = () => {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState<null | { email: string }>();
+    const { loading, error, data } = useQuery(GET_DEFAULT_FIXTURES);
 
     function onAuthStateChanged(user: any) {
         setUser(user);
@@ -18,6 +21,7 @@ const App = () => {
 
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+
         return subscriber;
     }, []);
 
@@ -27,7 +31,7 @@ const App = () => {
             const googleCredential = auth.GoogleAuthProvider.credential(idToken);
             return auth().signInWithCredential(googleCredential);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 

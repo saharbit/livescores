@@ -10,11 +10,14 @@
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
     },
     "dependencies": {
+        "@apollo/client": "^3.2.7",
         "@react-native-community/google-signin": "^4.0.3",
         "@react-native-firebase/app": "^8.4.1",
         "@react-native-firebase/auth": "^9.1.2",
+        "graphql": "^15.4.0",
         "react": "16.13.1",
-        "react-native": "0.63.2"
+        "react-native": "0.63.2",
+        "react-native-config": "^1.4.1"
     },
     "devDependencies": {
         "@babel/core": "^7.8.4",
