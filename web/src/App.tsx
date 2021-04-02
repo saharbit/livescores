@@ -9,7 +9,6 @@ import { Button, Loading } from "@kiwicom/orbit-components";
 import styled from "styled-components";
 import Logout from "@kiwicom/orbit-components/lib/icons/Logout";
 import Google from "@kiwicom/orbit-components/lib/icons/Google";
-import Calendar from "@kiwicom/orbit-components/lib/icons/Calendar";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +18,7 @@ const App = () => {
     const wizardDispatch = useWizardDispatch();
 
     useEffect(() => {
-        function tryToRestoreUserSession() {
+        function restoreUserSession() {
             firebase.auth().onAuthStateChanged((user) => {
                 try {
                     if (user) {
@@ -57,7 +56,7 @@ const App = () => {
             });
         }
 
-        tryToRestoreUserSession();
+        restoreUserSession();
     }, [userDispatch, wizardDispatch, navigate]);
 
     const onSignOut = () => {
@@ -114,27 +113,27 @@ const App = () => {
 
     return (
         <div>
-            <Navbar className="p-3">
-                <div className="container mx-auto md:max-w-screen-md flex flex-row items-center justify-between">
+            <Navbar className="p-3 shadow-md">
+                <div className="container mx-auto md:max-w-screen-sm flex flex-row items-center justify-between">
                     <div className="mr-2">
                         <Button
                             onClick={() => navigate("wizard")}
-                            type="white"
-                            iconLeft={<Calendar />}
+                            type="secondary"
+                            // iconLeft={<Calendar />}
                         >
-                            Set up your own feed
+                            Select teams
                         </Button>
                     </div>
                     <Button
                         onClick={user ? onSignOut : onSignUp}
-                        type="white"
+                        type="secondary"
                         iconLeft={user ? <Logout /> : <Google />}
                     >
                         {user ? "Sign Out" : "Sign Up"}
                     </Button>
                 </div>
             </Navbar>
-            <div className="container mx-auto md:max-w-screen-md">
+            <div className="container mx-auto md:max-w-screen-sm">
                 <div className=" mt-20 mx-2 lg:mx-0">
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -147,12 +146,14 @@ const App = () => {
 };
 
 const Navbar = styled.div`
-    background: black;
     top: 0;
     left: 0;
     z-index: 999;
     width: 100%;
     position: fixed;
+    background: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 `;
 
 export default App;
